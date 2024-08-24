@@ -1,0 +1,57 @@
+{
+  "id": "lhtrpgbrew",
+  "title": "Log Horizon TRPG (ログ・ホライズンTRPG) - HomeBrew",
+  "description": "A system for playing Log Horizon TRPG Homebrew for my team. <em>Database Database Just living in the Database</em>",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": 10,
+    "verified": 10
+  },
+  "authors": [
+    {
+      "name": "Kyane",
+      "url": "https://github.com/Tenyryas",
+      "discord": "Kyane#8654"
+    },
+    {
+      "name": "LeafSan",
+      "url": "https://github.com/LeafSan"
+    }
+  ],
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/lhtrpg/assets/Logo_lhtrpg.webp",
+      "thumbnail": "systems/lhtrpg/assets/Logo_lhtrpg.webp"
+    }
+  ],
+  "esmodules": ["module/lhtrpg.mjs"],
+  "styles": ["css/lhtrpg.css"],
+  "scripts": [],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ja",
+      "name": "日本語",
+      "path": "lang/ja.json"
+    },
+    {
+      "lang": "ko",
+      "name": "Korean",
+      "path": "lang/ko.json"
+    }
+  ],
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "mana",
+  "url": "https://github.com/LeafSan/lhtrpgbrew",
+  "manifest": "https://raw.githubusercontent.com/LeafSan/lhtrpgbrew/latest/system.json",
+  "download": "https://github.com/LeafSan/lhtrpgbrew/releases/download/v1.0.0/lhtrpgbrew.zip",
+  "license": "LICENSE.txt"
+}

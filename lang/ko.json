@@ -1,0 +1,236 @@
+{
+  "TYPES": {
+    "Actor": {
+      "TypeCharacter": "플레이어 캐릭터",
+      "TypeMonster": "몬스터"
+    },
+    "Item": {
+      "TypeAccessory": "악세서리",
+      "TypeArmor": "방어구",
+      "TypeBag": "가방",
+      "TypeConnection": "커넥션",
+      "TypeGear": "장비",
+      "TypeShield": "방패",
+      "TypeSkill": "특기",
+      "TypeUnion": "유니온",
+      "TypeWeapon": "무기"
+    }
+  },
+  "IMPORT": {
+    "Notif": {
+      "Items": "API 불러오기 - 공식 웹사이트의 아이템 API를 불러오는 중입니다...",
+      "ItemsDone": "API 불러오기 - 아이템 정보 불러오기 완료!",
+      "Skills": "API 불러오기 - 공식 웹사이트의 스킬 API를 불러오는 중입니다...",
+      "SkillsDone": "API 불러오기 - 스킬 정보 불러오기 완료!"
+    }
+  },
+  "Actor": {
+    "TypeCharacter": "플레이어 캐릭터",
+    "TypeMonster": "몬스터"
+  },
+  "Item": {
+    "TypeAccessory": "악세서리",
+    "TypeArmor": "방어구",
+    "TypeBag": "가방",
+    "TypeConnection": "커넥션",
+    "TypeGear": "장비",
+    "TypeShield": "방패",
+    "TypeSkill": "특기",
+    "TypeUnion": "유니온",
+    "TypeWeapon": "무기"
+  },
+  "LHTRPG": {
+    "Add": "추가",
+    "Agi": "AGI",
+    "Biography": {
+      "Label": "설명"
+    },
+    "ButtonLabel": {
+      "Cancel": "취소",
+      "Roll": "굴리기",
+      "Tag": {
+        "Add": "추가"
+      }
+    },
+    "Check": {
+      "Accuracy": "명중판정",
+      "Analysis": "해석치",
+      "Athletics": "운동치",
+      "Dodge": "회피판정",
+      "Endurance": "내구치",
+      "Evasion": "회피치",
+      "Knowledge": "지식치",
+      "MagicAccuracy": "마법판정",
+      "Negotiation": "교섭치",
+      "Operation": "조작치",
+      "Overcome": "돌파치",
+      "Perception": "지각치",
+      "Resistance": "저항판정"
+    },
+    "Classes": {
+      "none": "직업 선택",
+      "guardian": "가디언",
+      "samurai": "사무라이",
+      "monk": "몽크",
+      "hwarang": "화랑",
+      "cleric": "클레릭",
+      "druid": "드루이드",
+      "kannagi": "칸나기",
+      "templar": "템플러",
+      "assassin": "어새신",
+      "swashbuckler": "스워시버클러",
+      "bard": "바드",
+      "sorcerer": "소서러",
+      "summoner": "서머너",
+      "enchanter": "인챈터"
+    },
+    "Connection": {
+      "Label": "커넥션",
+      "Name": "이름"
+    },
+    "Description": {
+      "Label": "설명"
+    },
+    "Dex": "DEX",
+    "Difficulty": "난이도",
+    "Dis": "DIS",
+    "Effect": {
+      "Label": "효과"
+    },
+    "EffectCreate": "효과 생성",
+    "EffectDelete": "효과 삭제",
+    "EffectEdit": "효과 편집",
+    "EffectToggle": "효과 전환",
+    "End": "END",
+    "Int": "INT",
+    "Item": {
+      "Label": {
+        "Accuracy": "명중",
+        "Attack": "공격력",
+        "BagLimit": "수납 제한",
+        "BagSpace": "슬롯수",
+        "Check": "판정",
+        "Equipped": "장착",
+        "Initiative": "행동력",
+        "MDef": "마법 방어력",
+        "Magic": "마력",
+        "Main": "주무기",
+        "PDef": "물리 방어력",
+        "Price": "가격",
+        "Range": "사정거리",
+        "Rank": "랭크",
+        "Target": "대상",
+        "Timing": "타이밍"
+      }
+    },
+    "Label": {
+      "Afflicted": "위중",
+      "Barrier": "방벽",
+      "Cancel": "취소",
+      "Confused": "혼란",
+      "Dazed": "멍함",
+      "Decay": "쇠약",
+      "Defense": "방어력",
+      "Fate": "인과력",
+      "Fatigue": "피로",
+      "Guild": "소속길드",
+      "HP": "HP",
+      "Hate": "헤이트",
+      "ImportItems": "lhrpg.com에서 아이템 데이터 가져오기",
+      "ImportSkills": "lhrpg.com에서 스킬 데이터 가져오기",
+      "MP": "MP",
+      "Overconfident": "자만",
+      "Power": "공격력",
+      "Pursuit": "추격",
+      "Race": "종족",
+      "Rank": "랭크",
+      "Regen": "재생",
+      "Rigor": "경직",
+      "Staggered": "위축",
+      "Stress": "긴장",
+      "Tags": "태그",
+      "Type": "종류"
+    },
+    "Min": "MIN",
+    "Modifier": "수정치",
+    "Monster": {
+      "HateMultiplier": "헤이트 배율",
+      "Identification": "식별 난이도",
+      "Initiative": "행동력",
+      "MDef": "마법 방어력",
+      "PDef": "물리 방어력",
+      "Rank": "랭크",
+      "Skills": "특기",
+      "Speed": "이동력"
+    },
+    "NPlusMinus": "±N",
+    "Phy": "PHY",
+    "Placeholder": {
+      "Class": "메인직업",
+      "Name": "이름",
+      "Race": "종족",
+      "SubClass": "서브직업"
+    },
+    "Pre": "PRE",
+    "Races": {
+      "none": "종족 선택",
+      "human": "휴먼",
+      "elf": "엘프",
+      "dwarf": "드워프",
+      "halfAlv": "하프알브",
+      "felinoid": "묘인족",
+      "wolfFang": "낭아족",
+      "foxTail": "호미족"
+    },
+    "Skill": {
+      "Label": {
+        "Check": "판정",
+        "Cost": "비용",
+        "Limit": "제한",
+        "Range": "사정거리",
+        "SR": "SR",
+        "Target": "대상",
+        "Timing": "타이밍"
+      },
+      "Placeholder": {
+        "Check": "-",
+        "Cost": "-",
+        "Limit": "-",
+        "Range": "-",
+        "Target": "-",
+        "Timing": "-"
+      },
+      "Type": {
+        "Basic": "기본동작",
+        "Combat": "전투",
+        "General": "일반",
+        "Monster": "몬스터"
+      }
+    },
+    "Status": {
+      "Label": "상태"
+    },
+    "Str": "STR",
+    "Tooltip": {
+      "AttackPower": "공격력",
+      "Initiative": "행동력",
+      "MagicDefense": "마법방어력",
+      "MagicPower": "마력",
+      "PhysDefense": "물리방어력",
+      "RestorationPower": "회복력",
+      "Speed": "이동력"
+    },
+    "Union": {
+      "Label": "유니온",
+      "Name": "유니온명"
+    },
+    "Wil": "WIL",
+    "Wis": "WIS",
+    "WindowTitle": {
+      "AbilityCheck": "능력치 판정",
+      "Tag": {
+        "AddNewTag": "새 태그를 추가"
+      }
+    }
+  }
+}

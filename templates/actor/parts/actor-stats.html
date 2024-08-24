@@ -1,0 +1,716 @@
+<h4 class="tab-title">STATUS</h4>
+
+<div class="stats grid grid-14col">
+  {{!-- HP, MP, Fate, power, etc --}}
+  <div class="battle-status grid grid-6col grid-span-6">
+    <div class="hp flex grid-span-3">
+      <h4>{{localize 'LHTRPG.Label.HP'}}</h4>
+      <div class="hp-gauge flexrow">
+        <input
+          class="hp-input current"
+          type="text"
+          name="system.health.value"
+          value="{{system.health.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="3"
+        />
+        <span>/</span>
+        <input
+          class="hp-input max"
+          type="text"
+          name="system.health.max"
+          value="{{system.health.max}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="3"
+        />
+      </div>
+    </div>
+    <div class="mp flex grid-span-3">
+      <h4>{{localize 'LHTRPG.Label.MP'}}</h4>
+      <div class="mp-gauge flexrow">
+        <input
+          class="mp-input current"
+          type="text"
+          name="system.mana.value"
+          value="{{system.mana.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="3"
+        />
+        <span>/</span>
+        <input
+          class="mp-input max"
+          type="text"
+          name="system.mana.max"
+          value="{{system.mana.max}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="3"
+        />
+      </div>
+    </div>
+
+    <div class="speedInit grid grid-6col grid-span-6">
+      <div class="grid-span-3 flex flexrow">
+        <div class="speed" title="{{localize 'LHTRPG.Tooltip.Speed'}}">
+          <input
+            class="speed-input"
+            type="text"
+            name="system.battle-status.speed.total"
+            value="{{system.battle-status.speed.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <div><img src="/systems/lhtrpg/assets/ui/speed.svg" alt="" /></div>
+        </div>
+      </div>
+      <div class="grid-span-3 flex flexrow">
+        <div
+          class="initiative"
+          title="{{localize 'LHTRPG.Tooltip.Initiative'}}"
+        >
+          <input
+            class="initiative-input"
+            type="text"
+            name="system.battle-status.initiative.total"
+            value="{{system.battle-status.initiative.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <div>
+            <img src="/systems/lhtrpg/assets/ui/initiative.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="power grid grid-3col grid-span-3">
+      <h4 class="grid-span-3">{{localize 'LHTRPG.Label.Power'}}</h4>
+      <div
+        class="power-attack grid-span-1"
+        title="{{localize 'LHTRPG.Tooltip.AttackPower'}}"
+      >
+        <input
+          class="power-attack-input"
+          type="text"
+          name="system.battle-status.power.attack.total"
+          value="{{system.battle-status.power.attack.total}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+          disabled
+        />
+        <h4><img src="/systems/lhtrpg/assets/ui/attack.svg" alt="" /></h4>
+      </div>
+      <div
+        class="power-resto grid-span-1"
+        title="{{localize 'LHTRPG.Tooltip.RestorationPower'}}"
+      >
+        <input
+          class="power-resto-input"
+          type="text"
+          name="system.battle-status.power.restoration.total"
+          value="{{system.battle-status.power.restoration.total}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+          disabled
+        />
+        <h4><img src="/systems/lhtrpg/assets/ui/resto.svg" alt="" /></h4>
+      </div>
+      <div
+        class="power-magic grid-span-1"
+        title="{{localize 'LHTRPG.Tooltip.MagicPower'}}"
+      >
+        <input
+          class="power-magic-input"
+          type="text"
+          name="system.battle-status.power.magic.total"
+          value="{{system.battle-status.power.magic.total}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+          disabled
+        />
+        <h4><img src="/systems/lhtrpg/assets/ui/magic.svg" alt="" /></h4>
+      </div>
+    </div>
+
+    <div class="defense grid grid-3col grid-span-3">
+      <h4 class="grid-span-3">{{localize 'LHTRPG.Label.Defense'}}</h4>
+      <div class="grid-span-3 flex flexrow">
+        <div
+          class="defense-phys"
+          title="{{localize 'LHTRPG.Tooltip.PhysDefense'}}"
+        >
+          <input
+            class="defense-phys-input"
+            type="text"
+            name="system.battle-status.defense.phys.total"
+            value="{{system.battle-status.defense.phys.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <h4><img src="/systems/lhtrpg/assets/ui/phys-def.svg" alt="" /></h4>
+        </div>
+        <div
+          class="defense-magic"
+          title="{{localize 'LHTRPG.Tooltip.MagicDefense'}}"
+        >
+          <input
+            class="defense-magic-input"
+            type="text"
+            name="system.battle-status.defense.magic.total"
+            value="{{system.battle-status.defense.magic.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <h4><img src="/systems/lhtrpg/assets/ui/magic-def.svg" alt="" /></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- Attributes and related skills --}}
+  <div class="attributes grid grid-8col grid-span-8">
+    <div class="str grid grid-2col grid-span-2">
+      <h4 class="attr-name grid-span-2">[PHY]</h4>
+      <div class="attr-inputs flexcolumn grid-span-2">
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.phy.value"
+          value="{{system.attributes.phy.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">str</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.str.value"
+          value="{{system.attributes.str.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">end</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.end.value"
+          value="{{system.attributes.end.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcol grid-span-2 rollableSkill"
+        data-name="Athletics"
+        data-rank="{{system.checks.athletics.rank}}"
+        data-total="{{system.checks.athletics.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Athletics'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.athletics.rank"
+          value="{{system.checks.athletics.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Endurance"
+        data-rank="{{system.checks.endurance.rank}}"
+        data-total="{{system.checks.endurance.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Endurance'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.endurance.rank"
+          value="{{system.checks.endurance.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Accuracy"
+        data-rank="{{system.checks.accuracy.rank}}"
+        data-total="{{system.checks.accuracy.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Accuracy'}}</h4>
+      </div>
+    </div>
+    <div class="dex grid grid-2col grid-span-2">
+      <h4 class="attr-name grid-span-2">[AGI]</h4>
+      <div class="attr-inputs flexcolumn grid-span-2">
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.agi.value"
+          value="{{system.attributes.agi.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">qik</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.qik.value"
+          value="{{system.attributes.qik.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">dex</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.dex.value"
+          value="{{system.attributes.dex.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcol grid-span-2 rollableSkill"
+        data-name="Overcome"
+        data-rank="{{system.checks.overcome.rank}}"
+        data-total="{{system.checks.overcome.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Overcome'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.overcome.rank"
+          value="{{system.checks.overcome.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Operation"
+        data-rank="{{system.checks.operation.rank}}"
+        data-total="{{system.checks.operation.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Operation'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.operation.rank"
+          value="{{system.checks.operation.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="MagicAccuracy"
+        data-rank="{{system.checks.magicAccuracy.rank}}"
+        data-total="{{system.checks.magicAccuracy.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.MagicAccuracy'}}</h4>
+      </div>
+    </div>
+    <div class="pow grid grid-2col grid-span-2">
+      <h4 class="attr-name grid-span-2">[WIL]</h4>
+      <div class="attr-inputs flexcolumn grid-span-2">
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.wil.value"
+          value="{{system.attributes.wil.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">min</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.min.value"
+          value="{{system.attributes.min.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">pre</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.pre.value"
+          value="{{system.attributes.pre.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcol grid-span-2 rollableSkill"
+        data-name="Perception"
+        data-rank="{{system.checks.perception.rank}}"
+        data-total="{{system.checks.perception.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Perception'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.perception.rank"
+          value="{{system.checks.perception.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Negotiation"
+        data-rank="{{system.checks.negotiation.rank}}"
+        data-total="{{system.checks.negotiation.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Negotiation'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.negotiation.rank"
+          value="{{system.checks.negotiation.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Dodge"
+        data-rank="{{system.checks.dodge.rank}}"
+        data-total="{{system.checks.dodge.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Dodge'}}</h4>
+      </div>
+    </div>
+
+    <div class="int grid grid-2col grid-span-2">
+      <h4 class="attr-name grid-span-2">[INT]</h4>
+      <div class="attr-inputs flexcolumn grid-span-2">
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.int.value"
+          value="{{system.attributes.int.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">dis</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.dis.value"
+          value="{{system.attributes.dis.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div class="attr-inputs flexrow grid-span-2">
+        <h4 class="attr-name">wis</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.attributes.wis.value"
+          value="{{system.attributes.wis.value}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcol grid-span-2 rollableSkill"
+        data-name="Knowledge"
+        data-rank="{{system.checks.knowledge.rank}}"
+        data-total="{{system.checks.knowledge.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Knowledge'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.knowledge.rank"
+          value="{{system.checks.knowledge.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Analysis"
+        data-rank="{{system.checks.analysis.rank}}"
+        data-total="{{system.checks.analysis.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Analysis'}}</h4>
+        <input
+          class="attr-input"
+          type="text"
+          name="system.checks.analysis.rank"
+          value="{{system.checks.analysis.rank}}"
+          placeholder="0"
+          data-dtype="Number"
+          maxlength="2"
+        />
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Resistance"
+        data-rank="{{system.checks.resistance.rank}}"
+        data-total="{{system.checks.resistance.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Resistance'}}</h4>
+      </div>
+    </div>
+    <!-- 
+    <div class="grid-span-8 flexrow">
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Accuracy"
+        data-rank="{{system.checks.accuracy.rank}}"
+        data-total="{{system.checks.accuracy.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Accuracy'}}</h4>
+        <div class="flexrow">
+          <input
+            class="attr-input"
+            type="text"
+            name="system.checks.accuracy.total"
+            value="{{system.checks.accuracy.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <span>+</span>
+          <input
+            class="attr-input"
+            type="text"
+            name="system.checks.accuracy.rank"
+            value="{{system.checks.accuracy.rank}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <span>D</span>
+        </div>
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Evasion"
+        data-rank="{{system.checks.evasion.rank}}"
+        data-total="{{system.checks.evasion.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Evasion'}}</h4>
+        <div class="flexrow">
+          <input
+            class="attr-input"
+            type="text"
+            name="system.checks.evasion.total"
+            value="{{system.checks.evasion.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <span>+</span>
+          <input
+            class="attr-input"
+            type="text"
+            name="system.checks.evasion.rank"
+            value="{{system.checks.evasion.rank}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <span>D</span>
+        </div>
+      </div>
+      <div
+        class="check flexcolumn grid-span-2 rollableSkill"
+        data-name="Resistance"
+        data-rank="{{system.checks.resistance.rank}}"
+        data-total="{{system.checks.resistance.total}}"
+      >
+        <h4>{{localize 'LHTRPG.Check.Resistance'}}</h4>
+        <div class="flexrow">
+          <input
+            class="attr-input"
+            type="text"
+            name="system.checks.resistance.total"
+            value="{{system.checks.resistance.total}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <span>+</span>
+          <input
+            class="attr-input"
+            type="text"
+            name="system.checks.resistance.rank"
+            value="{{system.checks.resistance.rank}}"
+            placeholder="0"
+            data-dtype="Number"
+            maxlength="2"
+            disabled
+          />
+          <span>D</span>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div class="bad-status grid grid-14col">
+  <div class="rated-statuses grid grid-6col grid-span-6">
+    <div class="resource grid-span-6">
+      <div class="flexrow">
+        <label class="resource-label">Tags</label>
+        <div class="align-right">
+          <a class="tag-control" data-action="create"
+            ><i class="fas fa-plus"></i
+          ></a>
+          <a class="tag-control" data-action="edit"
+            ><i class="fas fa-edit"></i
+          ></a>
+        </div>
+      </div>
+      <ol class="tag-list">
+        {{#each system.tags}}
+        <li class="tag">
+          <span>{{this}}</span>
+          {{#if @root.flags.lhtrpg.isTagEditActive}}
+          <a class="tag-control" data-action="delete" data-tag-id="{{@index}}">
+            <i class="fas fa-trash"></i>
+          </a>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid-span-2 status-row">
+    <div class="status-checkbox flexrow">
+      <label for="system.bad-status.dazed"
+        >{{localize 'LHTRPG.Label.Dazed'}}</label
+      >
+      <input
+        type="checkbox"
+        name="system.bad-status.dazed"
+        {{checked
+        system.bad-status.dazed}}
+        data-dtype="Boolean"
+      />
+    </div>
+    <div class="status-checkbox flexrow">
+      <label for="system.bad-status.rigor"
+        >{{localize 'LHTRPG.Label.Rigor'}}</label
+      >
+      <input
+        type="checkbox"
+        name="system.bad-status.rigor"
+        {{checked
+        system.bad-status.rigor}}
+        data-dtype="Boolean"
+      />
+    </div>
+  </div>
+  <div class="grid-span-3 status-row">
+    <div class="status-checkbox flexrow">
+      <label for="system.bad-status.confused"
+        >{{localize 'LHTRPG.Label.Confused'}}</label
+      >
+      <input
+        type="checkbox"
+        name="system.bad-status.confused"
+        {{checked
+        system.bad-status.confused}}
+        data-dtype="Boolean"
+      />
+    </div>
+    <div class="status-checkbox flexrow">
+      <label for="system.bad-status.staggered"
+        >{{localize 'LHTRPG.Label.Staggered'}}</label
+      >
+      <input
+        type="checkbox"
+        name="system.bad-status.staggered"
+        {{checked
+        system.bad-status.staggered}}
+        data-dtype="Boolean"
+      />
+    </div>
+  </div>
+  <div class="grid-span-3 status-row">
+    <div class="status-checkbox flexrow">
+      <label for="system.bad-status.afflicted"
+        >{{localize 'LHTRPG.Label.Afflicted'}}</label
+      >
+      <input
+        type="checkbox"
+        name="system.bad-status.afflicted"
+        {{checked
+        system.bad-status.afflicted}}
+        data-dtype="Boolean"
+      />
+    </div>
+    <div class="status-checkbox flexrow">
+      <label for="system.bad-status.overconfident"
+        >{{localize 'LHTRPG.Label.Overconfident'}}</label
+      >
+      <input
+        type="checkbox"
+        name="system.bad-status.overconfident"
+        {{checked
+        system.bad-status.overconfident}}
+        data-dtype="Boolean"
+      />
+    </div>
+  </div>
+</div>

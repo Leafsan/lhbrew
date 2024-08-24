@@ -1,0 +1,220 @@
+{
+  "TYPES": {
+    "ACTOR": {
+      "TypeCharacter": "Player Character",
+      "TypeMonster": "Monster"
+    },
+    "ITEM": {
+      "TypeAccessory": "Accessory",
+      "TypeArmor": "Armor",
+      "TypeBag": "Bag",
+      "TypeConnection": "Connection",
+      "TypeGear": "Gear",
+      "TypeShield": "Shield",
+      "TypeSkill": "Skill",
+      "TypeUnion": "Union",
+      "TypeWeapon": "Weapon"
+    }
+  },
+  "IMPORT": {
+    "Notif": {
+      "Items": "API Import - Beginning the importation of Items from the official website's API...",
+      "ItemsDone": "API Import - Items importation done!",
+      "Skills": "API Import - Beginning the importation of Skills from the official website's API...",
+      "SkillsDone": "API Import - Skills importation done!"
+    }
+  },
+  "LHTRPG": {
+    "Add": "Add",
+    "Agi": "AGI",
+    "Biography": {
+      "Label": "Bio."
+    },
+    "ButtonLabel": {
+      "Cancel": "Cancel",
+      "Roll": "Roll",
+      "Tag": {
+        "Add": "Add"
+      }
+    },
+    "Check": {
+      "Accuracy": "Accuracy",
+      "Analysis": "Analysis",
+      "Athletics": "Athletics",
+      "Dodge": "Dodge",
+      "Endurance": "Endurance",
+      "Evasion": "Evasion",
+      "Knowledge": "Knowledge",
+      "MagicAccuracy": "Magic Accuracy",
+      "Negotiation": "Negotiation",
+      "Operation": "Operation",
+      "Overcome": "Overcome",
+      "Perception": "Perception",
+      "Resistance": "Resistance"
+    },
+    "Classes": {
+      "none": "Select a class",
+      "guardian": "Guardian",
+      "samurai": "Samurai",
+      "monk": "Monk",
+      "hwarang": "Hwarang",
+      "cleric": "Cleric",
+      "druid": "Druid",
+      "kannagi": "Kannagi",
+      "templar": "Templar",
+      "assassin": "Assassin",
+      "swashbuckler": "Swashbuckler",
+      "bard": "Bard",
+      "sorcerer": "Sorcerer",
+      "summoner": "Summoner",
+      "enchanter": "Enchanter"
+    },
+    "Connection": {
+      "Label": "Connect.",
+      "Name": "Name"
+    },
+    "Description": {
+      "Label": "Description"
+    },
+    "Dex": "DEX",
+    "Difficulty": "Difficulty",
+    "Dis": "DIS",
+    "Effect": {
+      "Label": "Effects"
+    },
+    "EffectCreate": "Create Effect",
+    "EffectDelete": "Delete Effect",
+    "EffectEdit": "Edit Effect",
+    "EffectToggle": "Toggle Effect",
+    "End": "END",
+    "Int": "INT",
+    "Item": {
+      "Label": {
+        "Accuracy": "Accuracy",
+        "Attack": "Attack",
+        "BagLimit": "Storage Limit",
+        "BagSpace": "Space",
+        "Check": "Check",
+        "Equipped": "Equipped",
+        "Initiative": "Initiative",
+        "MDef": "M. Def.",
+        "Magic": "Magic",
+        "Main": "Main Weapon",
+        "PDef": "Phys. Def.",
+        "Price": "Price",
+        "Range": "Range",
+        "Rank": "Rank",
+        "Target": "Target",
+        "Timing": "Timing"
+      }
+    },
+    "Label": {
+      "Afflicted": "Afflicted",
+      "Barrier": "Barrier",
+      "Cancel": "Cancel",
+      "Confused": "Confused",
+      "Dazed": "Dazed",
+      "Decay": "Decay",
+      "Defense": "Defense",
+      "Fate": "Fate",
+      "Fatigue": "FATIGUE",
+      "Guild": "Guild",
+      "HP": "HP",
+      "Hate": "HATE",
+      "ImportItems": "Import Items from lhrpg.com",
+      "ImportSkills": "Import Skills from lhrpg.com",
+      "MP": "MP",
+      "Overconfident": "Reckless",
+      "Power": "Offense",
+      "Pursuit": "Pursuit",
+      "Race": "Race",
+      "Regen": "Regen",
+      "Rigor": "Rigor",
+      "Staggered": "Staggered",
+      "Stress": "Stress",
+      "Tags": "Tags",
+      "Type": "Type"
+    },
+    "Min": "Min",
+    "Modifier": "Modifier",
+    "Monster": {
+      "HateMultiplier": "Hate Mult.",
+      "Identification": "ID Difficulty",
+      "Initiative": "Initiative",
+      "MDef": "M. Def.",
+      "PDef": "Phys. Def.",
+      "Rank": "Rank",
+      "Skills": "Skills",
+      "Speed": "Speed"
+    },
+    "NPlusMinus": "±N",
+    "Phy": "PHY",
+    "Placeholder": {
+      "Class": "Class",
+      "Name": "Name",
+      "Race": "Race",
+      "SubClass": "Subclass"
+    },
+    "Pre": "PRE",
+    "Races": {
+      "none": "Select Race",
+      "human": "Human",
+      "elf": "Elf",
+      "dwarf": "Dwarf",
+      "halfAlv": "Half-Alv",
+      "felinoid": "Felinoid",
+      "wolfFang": "Wolf Fang",
+      "foxTail": "Fox Tail"
+    },
+    "Skill": {
+      "Label": {
+        "Check": "Check",
+        "Cost": "Cost",
+        "Limit": "Limit",
+        "Range": "Range",
+        "SR": "SR",
+        "Target": "Target",
+        "Timing": "Timing"
+      },
+      "Placeholder": {
+        "Check": "-",
+        "Cost": "-",
+        "Limit": "-",
+        "Range": "-",
+        "Target": "-",
+        "Timing": "-"
+      },
+      "Type": {
+        "Basic": "Basic",
+        "Combat": "Combat",
+        "General": "General",
+        "Monster": "Monster"
+      }
+    },
+    "Status": {
+      "Label": "Status"
+    },
+    "Str": "STR",
+    "Tooltip": {
+      "AttackPower": "Attack Power",
+      "Initiative": "Initiative",
+      "MagicDefense": "Magic defense",
+      "MagicPower": "Magic Power",
+      "PhysDefense": "Physical Defense",
+      "RestorationPower": "Restoration Power",
+      "Speed": "Speed"
+    },
+    "Union": {
+      "Label": "Unions",
+      "Name": "Union"
+    },
+    "Wil": "WIL",
+    "Wis": "WIS",
+    "WindowTitle": {
+      "AbilityCheck": "Ability Score Check",
+      "Tag": {
+        "AddNewTag": "Add a new tag"
+      }
+    }
+  }
+}
