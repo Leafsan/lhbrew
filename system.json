@@ -52,6 +52,6 @@
   "secondaryTokenAttribute": "mana",
   "url": "https://github.com/LeafSan/lhbrew",
   "manifest": "https://raw.githubusercontent.com/LeafSan/lhbrew/main/system.json",
-  "download": "https://github.com/LeafSan/lhbrew/releases/download/v1.0.0/lhtrpg.zip",
+  "download": "https://github.com/Leafsan/lhbrew/releases/download/test/lhbrew.zip",
   "license": "LICENSE.txt"
 }
