@@ -169,18 +169,19 @@ export class LHTrpgActor extends Actor {
   _computeChecks(actorData) {
     const system = actorData.system;
     const checks = system.checks;
-    const phy = system.attributes.phy;
-    const agi = system.attributes.agi;
-    const wil = system.attributes.wil;
-    const int = system.attributes.int;
-    const str = system.attributes.str;
-    const end = system.attributes.end;
-    const qik = system.attributes.qik;
-    const dex = system.attributes.dex;
-    const min = system.attributes.min;
-    const pre = system.attributes.pre;
-    const dis = system.attributes.dis;
-    const wis = system.attributes.wis;
+    const phy = system.attributes.base.phy;
+    const agi = system.attributes.base.agi;
+    const wil = system.attributes.base.wil;
+    const int = system.attributes.base.int;
+
+    const str = system.attributes.derived.str;
+    const end = system.attributes.derived.end;
+    const qik = system.attributes.derived.qik;
+    const dex = system.attributes.derived.dex;
+    const min = system.attributes.derived.min;
+    const pre = system.attributes.derived.pre;
+    const dis = system.attributes.derived.dis;
+    const wis = system.attributes.derived.wis;
 
     // PHY Abilities
     checks.athletics.base = phy.value + str.value ?? 0;

@@ -113,40 +113,38 @@
         }
       },
       "checks": {
-        "checks": {
-          "athletics": {
-            "mod": 0
-          },
-          "endurance": {
-            "mod": 0
-          },
-          "disable": {
-            "mod": 0
-          },
-          "operation": {
-            "mod": 0
-          },
-          "perception": {
-            "mod": 0
-          },
-          "negotiation": {
-            "mod": 0
-          },
-          "knowledge": {
-            "mod": 0
-          },
-          "analysis": {
-            "mod": 0
-          },
-          "accuracy": {
-            "mod": 0
-          },
-          "evasion": {
-            "mod": 0
-          },
-          "resistance": {
-            "mod": 0
-          }
+        "athletics": {
+          "mod": 0
+        },
+        "endurance": {
+          "mod": 0
+        },
+        "disable": {
+          "mod": 0
+        },
+        "operation": {
+          "mod": 0
+        },
+        "perception": {
+          "mod": 0
+        },
+        "negotiation": {
+          "mod": 0
+        },
+        "knowledge": {
+          "mod": 0
+        },
+        "analysis": {
+          "mod": 0
+        },
+        "accuracy": {
+          "mod": 0
+        },
+        "evasion": {
+          "mod": 0
+        },
+        "resistance": {
+          "mod": 0
         }
       }
     },
