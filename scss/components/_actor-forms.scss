@@ -379,6 +379,63 @@ section.window-content {
       }
     }
 
+    .battle-check {
+      .check {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        h4 {
+          font-family: $lhtrpg-font-primary;
+          font-size: 11px;
+        }
+
+        h4:lang(ja) {
+          font-size: 18px;
+        }
+
+        h4:lang(ko) {
+          font-size: 15px;
+        }
+
+        div {
+          justify-content: center;
+          font-family: $lhtrpg-font-secondary;
+          align-items: baseline;
+        }
+
+        input {
+          min-width: 0;
+          padding: 0;
+          flex-grow: 0.2;
+        }
+
+        span {
+          color: $lhtrpg-font-color-ui;
+          flex-grow: 0.1;
+          min-width: 0;
+        }
+      }
+
+      .check:hover {
+        background-color: $lhtrpg-font-color-ui;
+        border-radius: 4px;
+
+        h4,
+        span,
+        input {
+          color: $lhtrpg-color-dark-green;
+        }
+      }
+
+      .check:active,
+      .check:focus {
+        background-color: $lhtrpg-font-color-ui;
+        border-radius: 4px;
+        box-shadow: 0px 0px 5px 2px $lhtrpg-font-color-ui;
+      }
+    }
+
     .battle-status {
       .checks {
         display: flex;
