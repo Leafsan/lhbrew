@@ -1,0 +1,74 @@
+{
+  "human": {
+    "phy": 10,
+    "agi": 10,
+    "wil": 10,
+    "int": 10,
+    "maxHP": 8,
+    "maxMP": 8,
+    "initFate": 1
+  },
+  "elf": {
+    "phy": 9,
+    "agi": 12,
+    "wil": 11,
+    "int": 10,
+    "maxHP": 8,
+    "maxMP": 8,
+    "initFate": 1
+  },
+  "dwarf": {
+    "phy": 12,
+    "agi": 9,
+    "wil": 11,
+    "int": 10,
+    "maxHP": 8,
+    "maxMP": 8,
+    "initFate": 1
+  },
+  "halfAlv": {
+    "phy": 9,
+    "agi": 11,
+    "wil": 10,
+    "int": 12,
+    "maxHP": 8,
+    "maxMP": 8,
+    "initFate": 1
+  },
+  "felinoid": {
+    "phy": 11,
+    "agi": 12,
+    "wil": 9,
+    "int": 10,
+    "maxHP": 8,
+    "maxMP": 8,
+    "initFate": 1
+  },
+  "wolfFang": {
+    "phy": 13,
+    "agi": 11,
+    "wil": 10,
+    "int": 8,
+    "maxHP": 16,
+    "maxMP": 0,
+    "initFate": 1
+  },
+  "foxTail": {
+    "phy": 9,
+    "agi": 10,
+    "wil": 12,
+    "int": 11,
+    "maxHP": 8,
+    "maxMP": 8,
+    "initFate": 1
+  },
+  "ritian": {
+    "phy": 8,
+    "agi": 10,
+    "wil": 11,
+    "int": 13,
+    "maxHP": 0,
+    "maxMP": 16,
+    "initFate": 1
+  }
+}

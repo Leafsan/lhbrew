@@ -72,16 +72,8 @@ export class LHTrpgActor extends Actor {
     let itemNumber = 0;
 
     if (actorData.type === "character") {
-      // Attributes modifiers
-      if (system.attributes) {
-        for (let [k] of Object.entries(system.attributes)) {
-          if (system.attributes[k].mod !== undefined) {
-            system.attributes[k].mod = Math.floor(
-              system.attributes[k].value / 3
-            );
-          }
-        }
-      }
+      // Attributes and HP/MP
+      this._computeAttributesAndHPMP(actorData);
 
       // Abilities Scores
       this._computeChecks(actorData);
@@ -238,7 +230,334 @@ export class LHTrpgActor extends Actor {
   }
 
   _computeAttributesAndHPMP(actorData) {
+    const raceAttributes = {
+      human: {
+        phy: 10,
+        agi: 10,
+        wil: 10,
+        int: 10,
+        maxHP: 8,
+        maxMP: 8,
+        initFate: 1,
+      },
+      elf: {
+        phy: 9,
+        agi: 12,
+        wil: 11,
+        int: 10,
+        maxHP: 8,
+        maxMP: 8,
+        initFate: 1,
+      },
+      dwarf: {
+        phy: 12,
+        agi: 9,
+        wil: 11,
+        int: 10,
+        maxHP: 8,
+        maxMP: 8,
+        initFate: 1,
+      },
+      halfAlv: {
+        phy: 9,
+        agi: 11,
+        wil: 10,
+        int: 12,
+        maxHP: 8,
+        maxMP: 8,
+        initFate: 1,
+      },
+      felinoid: {
+        phy: 11,
+        agi: 12,
+        wil: 9,
+        int: 10,
+        maxHP: 8,
+        maxMP: 8,
+        initFate: 1,
+      },
+      wolfFang: {
+        phy: 13,
+        agi: 11,
+        wil: 10,
+        int: 8,
+        maxHP: 16,
+        maxMP: 0,
+        initFate: 1,
+      },
+      foxTail: {
+        phy: 9,
+        agi: 10,
+        wil: 12,
+        int: 11,
+        maxHP: 8,
+        maxMP: 8,
+        initFate: 1,
+      },
+      ritian: {
+        phy: 8,
+        agi: 10,
+        wil: 11,
+        int: 13,
+        maxHP: 0,
+        maxMP: 16,
+        initFate: 1,
+      },
+    };
+
+    const classAttributes = {
+      guardian: {
+        maxHP: 50,
+        maxMP: 30,
+        str: 2,
+        end: 4,
+        dex: 1,
+        qik: 1,
+        min: 3,
+        pre: 2,
+        dis: 0,
+        wis: 1,
+        hpGrowth: 7,
+        mpGrowth: 1,
+      },
+      samurai: {
+        maxHP: 50,
+        maxMP: 30,
+        str: 4,
+        end: 2,
+        dex: 1,
+        qik: 3,
+        min: 1,
+        pre: 0,
+        dis: 1,
+        wis: 2,
+        hpGrowth: 7,
+        mpGrowth: 1,
+      },
+      monk: {
+        maxHP: 45,
+        maxMP: 35,
+        str: 3,
+        end: 1,
+        dex: 4,
+        qik: 2,
+        min: 2,
+        pre: 1,
+        dis: 0,
+        wis: 1,
+        hpGrowth: 6,
+        mpGrowth: 2,
+      },
+      hwarang: {
+        maxHP: 45,
+        maxMP: 35,
+        str: 4,
+        end: 2,
+        dex: 1,
+        qik: 1,
+        min: 1,
+        pre: 2,
+        dis: 3,
+        wis: 0,
+        hpGrowth: 6,
+        mpGrowth: 2,
+      },
+      cleric: {
+        maxHP: 45,
+        maxMP: 35,
+        str: 2,
+        end: 2,
+        dex: 1,
+        qik: 0,
+        min: 4,
+        pre: 3,
+        dis: 1,
+        wis: 1,
+        hpGrowth: 6,
+        mpGrowth: 2,
+      },
+      druid: {
+        maxHP: 35,
+        maxMP: 45,
+        str: 0,
+        end: 1,
+        dex: 1,
+        qik: 1,
+        min: 3,
+        pre: 2,
+        dis: 4,
+        wis: 2,
+        hpGrowth: 4,
+        mpGrowth: 4,
+      },
+      kannagi: {
+        maxHP: 40,
+        maxMP: 40,
+        str: 2,
+        end: 1,
+        dex: 3,
+        qik: 1,
+        min: 0,
+        pre: 4,
+        dis: 1,
+        wis: 2,
+        hpGrowth: 5,
+        mpGrowth: 3,
+      },
+      templar: {
+        maxHP: 45,
+        maxMP: 35,
+        str: 2,
+        end: 3,
+        dex: 1,
+        qik: 0,
+        min: 4,
+        pre: 2,
+        dis: 1,
+        wis: 1,
+        hpGrowth: 6,
+        mpGrowth: 2,
+      },
+      assassin: {
+        maxHP: 40,
+        maxMP: 40,
+        str: 2,
+        end: 1,
+        dex: 3,
+        qik: 4,
+        min: 1,
+        pre: 2,
+        dis: 1,
+        wis: 0,
+        hpGrowth: 5,
+        mpGrowth: 3,
+      },
+      swashbuckler: {
+        maxHP: 45,
+        maxMP: 35,
+        str: 3,
+        end: 2,
+        dex: 4,
+        qik: 2,
+        min: 1,
+        pre: 1,
+        dis: 0,
+        wis: 1,
+        hpGrowth: 6,
+        mpGrowth: 2,
+      },
+      bard: {
+        maxHP: 35,
+        maxMP: 45,
+        str: 1,
+        end: 0,
+        dex: 2,
+        qik: 1,
+        min: 2,
+        pre: 4,
+        dis: 3,
+        wis: 1,
+        hpGrowth: 4,
+        mpGrowth: 3,
+      },
+      sorcerer: {
+        maxHP: 30,
+        maxMP: 50,
+        str: 1,
+        end: 0,
+        dex: 2,
+        qik: 1,
+        min: 2,
+        pre: 1,
+        dis: 4,
+        wis: 3,
+        hpGrowth: 3,
+        mpGrowth: 5,
+      },
+      summoner: {
+        maxHP: 35,
+        maxMP: 45,
+        str: 0,
+        end: 1,
+        dex: 1,
+        qik: 2,
+        min: 4,
+        pre: 1,
+        dis: 3,
+        wis: 2,
+        hpGrowth: 4,
+        mpGrowth: 4,
+      },
+      enchanter: {
+        maxHP: 30,
+        maxMP: 50,
+        str: 0,
+        end: 1,
+        dex: 1,
+        qik: 1,
+        min: 2,
+        pre: 4,
+        dis: 3,
+        wis: 2,
+        hpGrowth: 3,
+        mpGrowth: 5,
+      },
+    };
+
     const system = actorData.system;
+    const rank = system.infos.crank;
+    const race = system.race;
+    const mainClass = system.class.name;
+    const fatigue = system.infos.fatigue;
+    const stress = system.infos.stress;
+
+    const baseAttr = system["attributes"].base;
+    const derivedAttr = system["attributes"].derived;
+
+    const classAttr = classAttributes[mainClass];
+    const raceAttr = raceAttributes[race];
+
+    console.log(classAttr);
+    console.log(raceAttr);
+
+    // Set base attributes
+    baseAttr.phy.value = raceAttr.phy + (baseAttr.phy.mod ?? 0) ?? 0;
+    baseAttr.agi.value = raceAttr.agi + (baseAttr.agi.mod ?? 0) ?? 0;
+    baseAttr.wil.value = raceAttr.wil + (baseAttr.wil.mod ?? 0) ?? 0;
+    baseAttr.int.value = raceAttr.int + (baseAttr.int.mod ?? 0) ?? 0;
+
+    // Set derived attributes
+    derivedAttr.str.value = classAttr.str + (classAttr.str.mod ?? 0) ?? 0;
+    derivedAttr.end.value = classAttr.end + (classAttr.end.mod ?? 0) ?? 0;
+    derivedAttr.qik.value = classAttr.qik + (classAttr.qik.mod ?? 0) ?? 0;
+    derivedAttr.dex.value = classAttr.dex + (classAttr.dex.mod ?? 0) ?? 0;
+    derivedAttr.min.value = classAttr.min + (classAttr.min.mod ?? 0) ?? 0;
+    derivedAttr.pre.value = classAttr.pre + (classAttr.pre.mod ?? 0) ?? 0;
+    derivedAttr.dis.value = classAttr.dis + (classAttr.dis.mod ?? 0) ?? 0;
+    derivedAttr.wis.value = classAttr.wis + (classAttr.wis.mod ?? 0) ?? 0;
+
+    console.log(system.health.mod);
+    console.log(system.mana.mod);
+    // Set max HP/MP/Fate
+    system.health.max = Math.max(
+      raceAttr.maxHP +
+        classAttr.maxHP +
+        baseAttr.phy.value +
+        (system.health.mod ?? 0) +
+        classAttr.hpGrowth * (rank - 1) -
+        fatigue ?? 0,
+      0
+    );
+    system.mana.max = Math.max(
+      raceAttr.maxMP +
+        classAttr.maxMP +
+        baseAttr.wil.value +
+        (system.mana.mod ?? 0) +
+        classAttr.mpGrowth * (rank - 1) -
+        stress ?? 0,
+      0
+    );
+    system.fate.max = raceAttr.initFate;
   }
 
   _computeBattleStatuses(actorData) {
