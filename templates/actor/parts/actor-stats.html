@@ -433,9 +433,9 @@
       </div>
       <div
         class="check flexcolumn grid-span-2 rollableSkill"
-        data-name="Dodge"
-        data-rank="{{system.checks.dodge.rank}}"
-        data-total="{{system.checks.dodge.total}}"
+        data-name="Evasion"
+        data-rank="{{system.checks.evasion.rank}}"
+        data-total="{{system.checks.evasion.total}}"
       >
         <h4>{{localize 'LHTRPG.Check.Dodge'}}</h4>
       </div>
@@ -524,105 +524,6 @@
         <h4>{{localize 'LHTRPG.Check.Resistance'}}</h4>
       </div>
     </div>
-    <!-- 
-    <div class="grid-span-8 flexrow">
-      <div
-        class="check flexcolumn grid-span-2 rollableSkill"
-        data-name="Accuracy"
-        data-rank="{{system.checks.accuracy.rank}}"
-        data-total="{{system.checks.accuracy.total}}"
-      >
-        <h4>{{localize 'LHTRPG.Check.Accuracy'}}</h4>
-        <div class="flexrow">
-          <input
-            class="attr-input"
-            type="text"
-            name="system.checks.accuracy.total"
-            value="{{system.checks.accuracy.total}}"
-            placeholder="0"
-            data-dtype="Number"
-            maxlength="2"
-            disabled
-          />
-          <span>+</span>
-          <input
-            class="attr-input"
-            type="text"
-            name="system.checks.accuracy.rank"
-            value="{{system.checks.accuracy.rank}}"
-            placeholder="0"
-            data-dtype="Number"
-            maxlength="2"
-            disabled
-          />
-          <span>D</span>
-        </div>
-      </div>
-      <div
-        class="check flexcolumn grid-span-2 rollableSkill"
-        data-name="Evasion"
-        data-rank="{{system.checks.evasion.rank}}"
-        data-total="{{system.checks.evasion.total}}"
-      >
-        <h4>{{localize 'LHTRPG.Check.Evasion'}}</h4>
-        <div class="flexrow">
-          <input
-            class="attr-input"
-            type="text"
-            name="system.checks.evasion.total"
-            value="{{system.checks.evasion.total}}"
-            placeholder="0"
-            data-dtype="Number"
-            maxlength="2"
-            disabled
-          />
-          <span>+</span>
-          <input
-            class="attr-input"
-            type="text"
-            name="system.checks.evasion.rank"
-            value="{{system.checks.evasion.rank}}"
-            placeholder="0"
-            data-dtype="Number"
-            maxlength="2"
-            disabled
-          />
-          <span>D</span>
-        </div>
-      </div>
-      <div
-        class="check flexcolumn grid-span-2 rollableSkill"
-        data-name="Resistance"
-        data-rank="{{system.checks.resistance.rank}}"
-        data-total="{{system.checks.resistance.total}}"
-      >
-        <h4>{{localize 'LHTRPG.Check.Resistance'}}</h4>
-        <div class="flexrow">
-          <input
-            class="attr-input"
-            type="text"
-            name="system.checks.resistance.total"
-            value="{{system.checks.resistance.total}}"
-            placeholder="0"
-            data-dtype="Number"
-            maxlength="2"
-            disabled
-          />
-          <span>+</span>
-          <input
-            class="attr-input"
-            type="text"
-            name="system.checks.resistance.rank"
-            value="{{system.checks.resistance.rank}}"
-            placeholder="0"
-            data-dtype="Number"
-            maxlength="2"
-            disabled
-          />
-          <span>D</span>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
 
@@ -644,7 +545,7 @@
         {{#each system.tags}}
         <li class="tag">
           <span>{{this}}</span>
-          {{#if @root.flags.lhtrpg.isTagEditActive}}
+          {{#if @root.flags.lhtrpgbrew.isTagEditActive}}
           <a class="tag-control" data-action="delete" data-tag-id="{{@index}}">
             <i class="fas fa-trash"></i>
           </a>

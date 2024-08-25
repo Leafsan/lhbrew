@@ -44,14 +44,8 @@
 			<div class="race">
 				<label for="system.race">{{localize 'LHTRPG.Label.Race'}}</label>
 				<select name="system.race">
-					{{#select system.race}}
-					{{#each config.races as |label race|}}
-						<option value="{{race}}">{{localize label}}</option>
-					{{/each}}
-					{{/select}}
+					{{selectOptions config.races selected=system.race localize=true}}
 				</select>
-				<!-- <input type="text" name="system.race" value="{{system.race}}"
-					placeholder="{{localize 'LHTRPG.Placeholder.Race'}}"> -->
 			</div>
 			<img class="class-img" src="{{system.class.img}}" data-edit="system.class.img"
 				title="{{system.class.name}}" height="100" width="100" />
@@ -63,14 +57,8 @@
 					value="{{system.class.subclassrank}}"
 					placeholder="1" data-dtype="Number">
 				<select class="class" name="system.class.name">
-					{{#select system.class.name}}
-					{{#each config.classes as |label class|}}
-						<option value="{{class}}">{{localize label}}</option>
-					{{/each}}
-					{{/select}}
+					{{selectOptions config.classes selected=system.class.name localize=true}}
 				</select>
-				<!-- <input class="class" type="text" name="system.class.name" value="{{system.class.name}}"
-					placeholder="{{localize 'LHTRPG.Placeholder.Class'}}"> -->
 			</div>
 			<div class="levels">
 				<input class="crank" type="text" name="system.infos.crank"

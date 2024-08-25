@@ -227,6 +227,19 @@ export class LHTrpgActor extends Actor {
     for (let [check] of Object.entries(checks)) {
       checks[check].dice = Math.max(checks[check].dice, 1);
     }
+
+    // Magic Accuracy
+    checks.magicAccuracy.base = wil.value + wis.value ?? 0;
+    checks.magicAccuracy.total =
+      checks.magicAccuracy.base + checks.magicAccuracy.mod;
+
+    // Evasion
+    checks.evasion.base = agi.value ?? 0;
+    checks.evasion.total = checks.evasion.base + checks.evasion.mod;
+
+    // Resistance
+    checks.resistance.base = wil.value ?? 0;
+    checks.resistance.total = checks.resistance.base + checks.resistance.mod;
   }
 
   _computeAttributesAndHPMP(actorData) {
@@ -517,9 +530,6 @@ export class LHTrpgActor extends Actor {
     const classAttr = classAttributes[mainClass];
     const raceAttr = raceAttributes[race];
 
-    console.log(classAttr);
-    console.log(raceAttr);
-
     // Set base attributes
     baseAttr.phy.value = raceAttr.phy + (baseAttr.phy.mod ?? 0) ?? 0;
     baseAttr.agi.value = raceAttr.agi + (baseAttr.agi.mod ?? 0) ?? 0;
@@ -536,8 +546,6 @@ export class LHTrpgActor extends Actor {
     derivedAttr.dis.value = classAttr.dis + (classAttr.dis.mod ?? 0) ?? 0;
     derivedAttr.wis.value = classAttr.wis + (classAttr.wis.mod ?? 0) ?? 0;
 
-    console.log(system.health.mod);
-    console.log(system.mana.mod);
     // Set max HP/MP/Fate
     system.health.max = Math.max(
       raceAttr.maxHP +

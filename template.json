@@ -170,6 +170,11 @@
             "mod": 0,
             "attain": 0
           },
+          "magicAccuracy": {
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
+          },
           "evasion": {
             "rank": 0,
             "mod": 0,

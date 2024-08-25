@@ -67,11 +67,11 @@ async function _onTagDelete(owner, tags, id) {
 }
 
 async function _onTagEdit(owner) {
-  const flagValue = owner.getFlag("lhtrpg", "isTagEditActive");
+  const flagValue = owner.getFlag("lhtrpgbrew", "isTagEditActive");
 
   if (flagValue === undefined || !flagValue) {
-    await owner.setFlag("lhtrpg", "isTagEditActive", true);
+    await owner.setFlag("lhtrpgbrew", "isTagEditActive", true);
   } else {
-    await owner.setFlag("lhtrpg", "isTagEditActive", false);
+    await owner.setFlag("lhtrpgbrew", "isTagEditActive", false);
   }
 }
