@@ -182,7 +182,6 @@ section.window-content {
     max-width: 211px;
 
     .hate-window,
-    .fate-window,
     .fatigue-window,
     .stress-window {
       position: relative;
@@ -197,7 +196,6 @@ section.window-content {
       background-repeat: no-repeat;
 
       .hate-label,
-      .fate-label,
       .fatigue-label,
       .stress-label {
         text-align: center;
@@ -211,7 +209,6 @@ section.window-content {
       }
 
       .hate-input,
-      .fate-input,
       .fatigue-input,
       .stress-input {
         font-size: 32px;
@@ -383,11 +380,68 @@ section.window-content {
     }
 
     .battle-status {
-      gap: 14px;
-      text-align: center;
-      margin-top: 0;
-      grid-template-rows: 75px 60px 70px;
-      row-gap: 2px;
+      .checks {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        border-top: 1px solid $lhtrpg-font-color-ui;
+        border-bottom: 1px solid $lhtrpg-font-color-ui;
+
+        .check {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+
+          h4 {
+            font-family: $lhtrpg-font-primary;
+            font-size: 11px;
+          }
+
+          h4:lang(ja) {
+            font-size: 18px;
+          }
+
+          h4:lang(ko) {
+            font-size: 15px;
+          }
+
+          div {
+            justify-content: center;
+            font-family: $lhtrpg-font-secondary;
+            align-items: baseline;
+          }
+
+          input {
+            min-width: 0;
+            padding: 0;
+            flex-grow: 0.2;
+          }
+
+          span {
+            color: $lhtrpg-font-color-ui;
+            flex-grow: 0.1;
+            min-width: 0;
+          }
+        }
+
+        .check:hover {
+          background-color: $lhtrpg-font-color-ui;
+          border-radius: 4px;
+
+          h4,
+          span,
+          input {
+            color: $lhtrpg-color-dark-green;
+          }
+        }
+
+        .check:active,
+        .check:focus {
+          background-color: $lhtrpg-font-color-ui;
+          border-radius: 4px;
+          box-shadow: 0px 0px 5px 2px $lhtrpg-font-color-ui;
+        }
+      }
 
       img {
         border: none;
@@ -440,11 +494,35 @@ section.window-content {
         }
       }
 
+      div.fate {
+        h4:first-child {
+          background: -webkit-linear-gradient(#f0e117, #ce4242);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: none;
+          font-weight: bold;
+        }
+
+        input {
+          background: -webkit-linear-gradient(#f0e117, #ce4242);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: none;
+          font-weight: bold;
+          text-align: right;
+        }
+
+        input[name="system.fate.max"] {
+          text-align: left;
+        }
+      }
+
       .hp,
-      .mp {
+      .mp,
+      .fate {
         text-align: center;
         grid-column-end: span 3;
-        font-size: 25px;
+        font-size: 20px;
 
         h4 {
           color: $lhtrpg-font-color-ui;
@@ -452,13 +530,14 @@ section.window-content {
         }
 
         .hp-gauge,
-        .mp-gauge {
+        .mp-gauge,
+        .fate-gauge {
           align-items: baseline;
           justify-content: center;
 
           input {
             font-family: $lhtrpg-font-secondary;
-            font-size: 25px;
+            font-size: 20px;
             text-shadow: none;
           }
 
@@ -540,6 +619,25 @@ section.window-content {
         margin-bottom: 0;
       }
 
+      .attr-block {
+        border-top: 1px solid $lhtrpg-font-color-ui;
+        border-bottom: 1px solid $lhtrpg-font-color-ui;
+
+        .base-block {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .derive-block {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
       .attr-inputs {
         font-family: $lhtrpg-font-secondary;
 
@@ -556,57 +654,6 @@ section.window-content {
         //     position: relative;
         //     top: -5px;
         //   }
-      }
-
-      .check {
-        h4 {
-          font-family: $lhtrpg-font-primary;
-          font-size: 11px;
-        }
-
-        h4:lang(ja) {
-          font-size: 18px;
-        }
-
-        h4:lang(ko) {
-          font-size: 15px;
-        }
-
-        div {
-          justify-content: center;
-          font-family: $lhtrpg-font-secondary;
-          align-items: baseline;
-        }
-
-        input {
-          min-width: 0;
-          padding: 0;
-          flex-grow: 0.2;
-        }
-
-        span {
-          color: $lhtrpg-font-color-ui;
-          flex-grow: 0.1;
-          min-width: 0;
-        }
-      }
-
-      .check:hover {
-        background-color: $lhtrpg-font-color-ui;
-        border-radius: 4px;
-
-        h4,
-        span,
-        input {
-          color: $lhtrpg-color-dark-green;
-        }
-      }
-
-      .check:active,
-      .check:focus {
-        background-color: $lhtrpg-font-color-ui;
-        border-radius: 4px;
-        box-shadow: 0px 0px 5px 2px $lhtrpg-font-color-ui;
       }
     }
 

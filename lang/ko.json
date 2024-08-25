@@ -53,19 +53,19 @@
       }
     },
     "Check": {
-      "Accuracy": "명중판정",
+      "Accuracy": "명중",
       "Analysis": "해석치",
       "Athletics": "운동치",
-      "Dodge": "회피판정",
+      "Dodge": "회피",
       "Endurance": "내구치",
       "Evasion": "회피치",
       "Knowledge": "지식치",
-      "MagicAccuracy": "마법판정",
+      "MagicAccuracy": "마명중",
       "Negotiation": "교섭치",
       "Operation": "조작치",
       "Overcome": "돌파치",
       "Perception": "지각치",
-      "Resistance": "저항판정"
+      "Resistance": "저항"
     },
     "Classes": {
       "none": "직업 선택",
