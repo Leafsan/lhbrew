@@ -375,7 +375,6 @@ export class LHTrpgActorSheet extends ActorSheet {
       "systems/lhtrpgbrew/templates/dialogs/rollDialog.html"
     );
     const checkName = `LHTRPG.Check.${skillName}`;
-    let dice;
     let difficulty;
 
     let d = new Dialog({
@@ -388,9 +387,8 @@ export class LHTrpgActorSheet extends ActorSheet {
           icon: '<i class="fas fa-dice"></i>',
           label: game.i18n.localize("LHTRPG.ButtonLabel.Roll"),
           callback: (html) => {
-            dice = html.find(".abilityCheckDice").val();
             difficulty = html.find(".abilityCheckDifficulty").val();
-            this.rollSkill(skillName, dice, total, difficulty, rank);
+            this.rollSkill(skillName, total, difficulty, rank);
           },
         },
         cancel: {
@@ -403,29 +401,24 @@ export class LHTrpgActorSheet extends ActorSheet {
     d.render(true);
   }
 
-  async rollSkill(skillName, dice, total, difficulty, rank) {
+  async rollSkill(skillName, total, difficulty, rank) {
     const checkName = `LHTRPG.Check.${skillName}`;
     const flavorText = `${game.i18n.localize(
       "LHTRPG.WindowTitle.AbilityCheck"
     )} - ${game.i18n.localize(checkName)}`;
-    let formula;
 
-    if (dice === undefined || dice == 0) {
-      formula = `1d20`;
-    } else if (dice > 0) {
-      dice = Number(dice) + 1;
-      formula = `${dice}d20k1`;
-    } else {
-      dice = Math.abs(dice) + 1;
-      formula = `${dice}d20kl1`;
-    }
+    console.log(total);
+    console.log(difficulty);
+    console.log(rank);
 
-    console.log(formula);
+    //rank type check
 
-    let roll = await new Roll(formula).evaluate();
-    let difficultyResult = difficulty + rank;
+    let roll = await new Roll("1d20").evaluate();
+    let difficultyTotal = total - difficulty + parseInt(rank);
 
-    let content = `<h2>${flavorText}</h2><h3 style="text-align:center">주사위 결과 vs 난이도</h3><div style="text-align:center; font-size: 20px;">${roll.total} vs ${total}</div>`;
+    console.log(difficultyTotal);
+
+    let content = `<h2>${flavorText}</h2><h3 style="text-align:center">주사위 결과 vs 난이도</h3><div style="text-align:center; font-size: 20px;">${roll.total} vs ${difficultyTotal}</div>`;
     ChatMessage.create({
       content: content,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),

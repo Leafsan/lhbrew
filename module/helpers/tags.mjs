@@ -17,12 +17,15 @@ export async function onManageTags(event, owner) {
   // console.log("tags: " + html);
   switch (a.dataset.action) {
     case "create":
+      console.log("create");
       await _onTagCreate(owner, tags);
       break;
     case "delete":
+      console.log("delete");
       await _onTagDelete(owner, tags, id);
       break;
     case "edit":
+      console.log("edit");
       await _onTagEdit(owner);
   }
 }
