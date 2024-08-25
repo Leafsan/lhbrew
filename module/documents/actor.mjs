@@ -297,33 +297,31 @@ export class LHTrpgActor extends Actor {
      * ATTACK, MAGIC, RESTORATION POWER
      */
 
-    let mainWeapon;
-
-    if (weapons.length > 0) {
-      mainWeapon = weapons[0];
-    }
+    // Initialize mainWeapon to the first weapon if it exists
+    let mainWeapon = weapons.length > 0 ? weapons[0] : undefined;
 
     // Get the first main weapon if the array has more than one weapon
     if (weapons.length > 1) {
       for (let [i] of Object.entries(weapons)) {
-        if (weapons[i].system.main) mainWeapon = weapons[i];
+        if (weapons[i].system.main) {
+          mainWeapon = weapons[i];
+          break;
+        }
       }
     }
 
-    if (mainWeapon !== undefined) {
-      bStatus.power.attack.base = str.value + mainWeapon.system.attack ?? 0;
-      bStatus.power.magic.base = dis.value + mainWeapon.system.magic ?? 0;
-    } else {
-      bStatus.power.attack.base = str.value ?? 0;
-      bStatus.power.magic.base = dis.value ?? 0;
-    }
+    // Set attack, restoration and magic base power
+    bStatus.power.attack.base = str.value + (mainWeapon?.system.attack ?? 0);
+    bStatus.power.restoration.base =
+      pre.value + (mainWeapon?.system.restoration ?? 0);
+    bStatus.power.magic.base = dis.value + (mainWeapon?.system.magic ?? 0);
 
     // Get the magic stat from accessories (Magic stones)
     let accBonus = 0;
 
     if (accessories.length > 0) {
-      for (let [i] of Object.entries(accessories)) {
-        accBonus += accessories[i].system.magic ?? 0;
+      for (const accessory of accessories) {
+        accBonus += accessory.system.magic ?? 0;
       }
     }
 
@@ -332,7 +330,8 @@ export class LHTrpgActor extends Actor {
       bStatus.power.attack.base + (bStatus.power.attack.mod ?? 0);
     bStatus.power.magic.total =
       bStatus.power.magic.base + (bStatus.power.magic.mod ?? 0) + accBonus;
-    bStatus.power.restoration.total = bStatus.power.restoration.mod ?? 0;
+    bStatus.power.restoration.total =
+      bStatus.power.restoration.base + (bStatus.power.restoration.mod ?? 0);
 
     /**
      * DEFENSES
@@ -341,8 +340,8 @@ export class LHTrpgActor extends Actor {
     let pDefBonus = 0;
     let mDefBonus = 0;
 
-    bStatus.defense.phys.base = str.mod * 2 ?? 0;
-    bStatus.defense.magic.base = int.mod * 2 ?? 0;
+    bStatus.defense.phys.base = end.value ?? 0;
+    bStatus.defense.magic.base = min.value ?? 0;
 
     // Since only one armor can be equipped at a time, only return the first in the array
     if (armors.length > 0) {
@@ -350,19 +349,17 @@ export class LHTrpgActor extends Actor {
       mDefBonus += armors[0].system.mdef ?? 0;
     }
 
-    if (shields.length > 0) {
-      for (let [i] of Object.entries(shields)) {
-        pDefBonus += shields[i].system.pdef ?? 0;
-        mDefBonus += shields[i].system.mdef ?? 0;
-      }
+    // Calculate defense bonuses from shields
+    for (const shield of shields) {
+      pDefBonus += shield.system.pdef ?? 0;
+      mDefBonus += shield.system.mdef ?? 0;
     }
+
     // Only add the defenses of the accessories if there's 3 or less of them, as that's the equippable limit
-    if (accessories.length > 0) {
-      if (accessories.length <= 3) {
-        for (let [i] of Object.entries(accessories)) {
-          pDefBonus += accessories[i].system.pdef ?? 0;
-          mDefBonus += accessories[i].system.mdef ?? 0;
-        }
+    if (accessories.length <= 3) {
+      for (const accessory of accessories) {
+        pDefBonus += accessory.system.pdef ?? 0;
+        mDefBonus += accessory.system.mdef ?? 0;
       }
     }
 
@@ -385,30 +382,25 @@ export class LHTrpgActor extends Actor {
 
     let initBonus = 0;
 
-    bStatus.initiative.base = str.mod + int.mod ?? 0;
+    bStatus.initiative.base = qik.value ?? 0;
 
-    // Only add the initiative bonus of the weapons if there's 2 or less of them, as that's the equippable limit
-    if (weapons.length > 0) {
-      if (weapons.length <= 2) {
-        for (let [i] of Object.entries(weapons)) {
-          initBonus += weapons[i].system.initiative ?? 0;
+    // Function to calculate initiative bonus from items
+    const calculateInitiativeBonus = (items, limit) => {
+      let bonus = 0;
+      if (items.length > 0 && items.length <= limit) {
+        for (const item of items) {
+          bonus += item.system.initiative ?? 0;
         }
       }
-    }
+      return bonus;
+    };
 
-    // Since only one armor can be equipped at a time, only return the first in the array
+    // Calculate initiative bonus from weapons, armors, and accessories
+    initBonus += calculateInitiativeBonus(weapons, 2);
     if (armors.length > 0) {
       initBonus += armors[0].system.initiative ?? 0;
     }
-
-    // Only add the initiative bonus of the accessories if there's 3 or less of them, as that's the equippable limit
-    if (accessories.length > 0) {
-      if (accessories.length <= 3) {
-        for (let [i] of Object.entries(accessories)) {
-          initBonus += accessories[i].system.initiative ?? 0;
-        }
-      }
-    }
+    initBonus += calculateInitiativeBonus(accessories, 3);
 
     let initTotal =
       bStatus.initiative.base + initBonus + bStatus.initiative.mod ?? 0;
