@@ -1,25 +1,33 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
-import {onManageTags} from "../helpers/tags.mjs";
+import {
+  onManageActiveEffect,
+  prepareActiveEffectCategories,
+} from "../helpers/effects.mjs";
+import { onManageTags } from "../helpers/tags.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
 export class LHTrpgItemSheet extends ItemSheet {
-
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["lhtrpg", "sheet", "item"],
       width: 520,
       height: 550,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [
+        {
+          navSelector: ".sheet-tabs",
+          contentSelector: ".sheet-body",
+          initial: "description",
+        },
+      ],
     });
   }
 
   /** @override */
   get template() {
-    const path = "systems/lhtrpg/templates/item";
+    const path = "systems/lhtrpgbrew/templates/item";
     // Return a single sheet for all item types.
     // return `${path}/item-sheet.html`;
 
@@ -50,7 +58,9 @@ export class LHTrpgItemSheet extends ItemSheet {
     context.flags = itemData.flags;
 
     context.enrichments = {
-      "description": await TextEditor.enrichHTML(context.system.description, {async: true})
+      description: await TextEditor.enrichHTML(context.system.description, {
+        async: true,
+      }),
     };
 
     context.effects = prepareActiveEffectCategories(this.item.effects);
@@ -69,9 +79,11 @@ export class LHTrpgItemSheet extends ItemSheet {
     // Roll handlers, click handlers, etc. would go here.
 
     // Active Effect management
-    html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.item));
+    html
+      .find(".effect-control")
+      .click((ev) => onManageActiveEffect(ev, this.item));
 
     // Tag management
-    html.find(".tag-control").click(ev => onManageTags(ev, this.item));
+    html.find(".tag-control").click((ev) => onManageTags(ev, this.item));
   }
 }

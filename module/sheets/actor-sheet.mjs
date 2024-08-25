@@ -13,7 +13,7 @@ export class LHTrpgActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["lhtrpg", "sheet", "actor"],
-      template: "systems/lhtrpg/templates/actor/actor-sheet.html",
+      template: "systems/lhtrpgbrew/templates/actor/actor-sheet.html",
       width: 700,
       height: 700,
       tabs: [
@@ -47,7 +47,7 @@ export class LHTrpgActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/lhtrpg/templates/actor/actor-${this.actor.type}-sheet.html`;
+    return `systems/lhtrpgbrew/templates/actor/actor-${this.actor.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -372,7 +372,7 @@ export class LHTrpgActorSheet extends ActorSheet {
     const skillName = dataset.name;
     console.log(dataset);
     const rendered_dialog = await renderTemplate(
-      "systems/lhtrpg/templates/dialogs/rollDialog.html"
+      "systems/lhtrpgbrew/templates/dialogs/rollDialog.html"
     );
     const checkName = `LHTRPG.Check.${skillName}`;
     let dice;

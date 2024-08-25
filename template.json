@@ -11,65 +11,63 @@
           "value": 0,
           "max": 0
         },
-        "fate": {
-          "value": 0,
-          "max": 0
-        },
         "tags": [],
         "biography": "",
         "race": ""
       },
       "attributes": {
-        "base": {
-          "phy": {
-            "value": 0,
-            "mod": 0
+        "attributes": {
+          "base": {
+            "phy": {
+              "value": 0,
+              "mod": 0
+            },
+            "agi": {
+              "value": 0,
+              "mod": 0
+            },
+            "wil": {
+              "value": 0,
+              "mod": 0
+            },
+            "int": {
+              "value": 0,
+              "mod": 0
+            }
           },
-          "agi": {
-            "value": 0,
-            "mod": 0
-          },
-          "wil": {
-            "value": 0,
-            "mod": 0
-          },
-          "int": {
-            "value": 0,
-            "mod": 0
-          }
-        },
-        "derived": {
-          "str": {
-            "value": 0,
-            "mod": 0
-          },
-          "end": {
-            "value": 0,
-            "mod": 0
-          },
-          "dex": {
-            "value": 0,
-            "mod": 0
-          },
-          "qik": {
-            "value": 0,
-            "mod": 0
-          },
-          "min": {
-            "value": 0,
-            "mod": 0
-          },
-          "pre": {
-            "value": 0,
-            "mod": 0
-          },
-          "dis": {
-            "value": 0,
-            "mod": 0
-          },
-          "wis": {
-            "value": 0,
-            "mod": 0
+          "derived": {
+            "str": {
+              "value": 0,
+              "mod": 0
+            },
+            "end": {
+              "value": 0,
+              "mod": 0
+            },
+            "dex": {
+              "value": 0,
+              "mod": 0
+            },
+            "qik": {
+              "value": 0,
+              "mod": 0
+            },
+            "min": {
+              "value": 0,
+              "mod": 0
+            },
+            "pre": {
+              "value": 0,
+              "mod": 0
+            },
+            "dis": {
+              "value": 0,
+              "mod": 0
+            },
+            "wis": {
+              "value": 0,
+              "mod": 0
+            }
           }
         }
       },
@@ -102,7 +100,7 @@
           }
         }
       },
-      "bad-status": {
+      "status": {
         "bad-status": {
           "dazed": false,
           "rigor": false,
@@ -110,54 +108,56 @@
           "staggered": false,
           "afflicted": false,
           "overconfident": false
-        }
+        },
+        "combat-status": {
+          "regen": 0,
+          "damageReduction": [],
+          "shield": 0
+        },
+        "life-status": []
       },
       "checks": {
-        "athletics": {
-          "mod": 0
-        },
-        "endurance": {
-          "mod": 0
-        },
-        "disable": {
-          "mod": 0
-        },
-        "operation": {
-          "mod": 0
-        },
-        "perception": {
-          "mod": 0
-        },
-        "negotiation": {
-          "mod": 0
-        },
-        "knowledge": {
-          "mod": 0
-        },
-        "analysis": {
-          "mod": 0
-        },
-        "accuracy": {
-          "mod": 0
-        },
-        "evasion": {
-          "mod": 0
-        },
-        "resistance": {
-          "mod": 0
+        "checks": {
+          "athletics": {
+            "rank": 0
+          },
+          "endurance": {
+            "rank": 0
+          },
+          "disable": {
+            "rank": 0
+          },
+          "operation": {
+            "rank": 0
+          },
+          "perception": {
+            "rank": 0
+          },
+          "negotiation": {
+            "rank": 0
+          },
+          "knowledge": {
+            "rank": 0
+          },
+          "analysis": {
+            "rank": 0
+          },
+          "accuracy": {
+            "rank": 0
+          },
+          "evasion": {
+            "rank": 0
+          },
+          "resistance": {
+            "rank": 0
+          }
         }
       }
     },
     "character": {
-      "templates": [
-        "base",
-        "attributes",
-        "battle-status",
-        "bad-status",
-        "checks"
-      ],
+      "templates": ["base", "attributes", "battle-status", "status", "checks"],
       "class": {
-        "img": "systems/lhtrpg/assets/ui/classes/Enchanter_Logo.png",
+        "img": "systems/lhtrpgbrew/assets/ui/classes/Enchanter_Logo.png",
         "name": "",
         "subclass": "",
         "subclassrank": 1
@@ -165,6 +165,7 @@
       "infos": {
         "crank": 1,
         "hate": 0,
+        "fate": 0,
         "fatigue": 0,
         "stress": 0,
         "level": 35

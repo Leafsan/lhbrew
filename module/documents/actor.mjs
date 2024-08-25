@@ -23,7 +23,7 @@ export class LHTrpgActor extends Actor {
       const updateData = {};
       updateData[
         "img"
-      ] = `systems/lhtrpg/assets/ui/actors_icons/${this.type}.svg`;
+      ] = `systems/lhtrpgbrew/assets/ui/actors_icons/${this.type}.svg`;
       await this.updateSource(updateData);
     }
   }
@@ -53,18 +53,18 @@ export class LHTrpgActor extends Actor {
   prepareDerivedData() {
     const actorData = this;
     const system = actorData.system;
-    const phy = system.attributes.phy;
-    const agi = system.attributes.agi;
-    const wil = system.attributes.wil;
-    const int = system.attributes.int;
-    const str = system.attributes.str;
-    const end = system.attributes.end;
-    const qik = system.attributes.qik;
-    const dex = system.attributes.dex;
-    const min = system.attributes.min;
-    const pre = system.attributes.pre;
-    const dis = system.attributes.dis;
-    const wis = system.attributes.wis;
+    const phy = system.base.phy;
+    const agi = system.base.agi;
+    const wil = system.base.wil;
+    const int = system.base.int;
+    const str = system.derived.str;
+    const end = system.derived.end;
+    const qik = system.derived.qik;
+    const dex = system.derived.dex;
+    const min = system.derived.min;
+    const pre = system.derived.pre;
+    const dis = system.derived.dis;
+    const wis = system.derived.wis;
 
     const checks = system.checks;
     const itemlist = actorData.items;
@@ -169,19 +169,19 @@ export class LHTrpgActor extends Actor {
   _computeChecks(actorData) {
     const system = actorData.system;
     const checks = system.checks;
-    const phy = system.attributes.base.phy;
-    const agi = system.attributes.base.agi;
-    const wil = system.attributes.base.wil;
-    const int = system.attributes.base.int;
+    const phy = system.base.phy;
+    const agi = system.base.agi;
+    const wil = system.base.wil;
+    const int = system.base.int;
 
-    const str = system.attributes.derived.str;
-    const end = system.attributes.derived.end;
-    const qik = system.attributes.derived.qik;
-    const dex = system.attributes.derived.dex;
-    const min = system.attributes.derived.min;
-    const pre = system.attributes.derived.pre;
-    const dis = system.attributes.derived.dis;
-    const wis = system.attributes.derived.wis;
+    const str = system.derived.str;
+    const end = system.derived.end;
+    const qik = system.derived.qik;
+    const dex = system.derived.dex;
+    const min = system.derived.min;
+    const pre = system.derived.pre;
+    const dis = system.derived.dis;
+    const wis = system.derived.wis;
 
     // PHY Abilities
     checks.athletics.base = phy.value + str.value ?? 0;

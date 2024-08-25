@@ -21,8 +21,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/lhtrpg/assets/Logo_lhtrpg.webp",
-      "thumbnail": "systems/lhtrpg/assets/Logo_lhtrpg.webp"
+      "url": "systems/lhtrpgbrew/assets/Logo_lhtrpg.webp",
+      "thumbnail": "systems/lhtrpgbrew/assets/Logo_lhtrpg.webp"
     }
   ],
   "esmodules": ["module/lhtrpg.mjs"],
