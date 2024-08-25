@@ -53,18 +53,18 @@ export class LHTrpgActor extends Actor {
   prepareDerivedData() {
     const actorData = this;
     const system = actorData.system;
-    const phy = system.base.phy;
-    const agi = system.base.agi;
-    const wil = system.base.wil;
-    const int = system.base.int;
-    const str = system.derived.str;
-    const end = system.derived.end;
-    const qik = system.derived.qik;
-    const dex = system.derived.dex;
-    const min = system.derived.min;
-    const pre = system.derived.pre;
-    const dis = system.derived.dis;
-    const wis = system.derived.wis;
+    const phy = system.attributes.base.phy;
+    const agi = system.attributes.base.agi;
+    const wil = system.attributes.base.wil;
+    const int = system.attributes.base.int;
+    const str = system.attributes.derived.str;
+    const end = system.attributes.derived.end;
+    const qik = system.attributes.derived.qik;
+    const dex = system.attributes.derived.dex;
+    const min = system.attributes.derived.min;
+    const pre = system.attributes.derived.pre;
+    const dis = system.attributes.derived.dis;
+    const wis = system.attributes.derived.wis;
 
     const checks = system.checks;
     const itemlist = actorData.items;
@@ -169,60 +169,40 @@ export class LHTrpgActor extends Actor {
   _computeChecks(actorData) {
     const system = actorData.system;
     const checks = system.checks;
-    const phy = system.base.phy;
-    const agi = system.base.agi;
-    const wil = system.base.wil;
-    const int = system.base.int;
+    const phy = system.attributes.base.phy;
+    const agi = system.attributes.base.agi;
+    const wil = system.attributes.base.wil;
+    const int = system.attributes.base.int;
 
-    const str = system.derived.str;
-    const end = system.derived.end;
-    const qik = system.derived.qik;
-    const dex = system.derived.dex;
-    const min = system.derived.min;
-    const pre = system.derived.pre;
-    const dis = system.derived.dis;
-    const wis = system.derived.wis;
+    const str = system.attributes.derived.str;
+    const end = system.attributes.derived.end;
+    const qik = system.attributes.derived.qik;
+    const dex = system.attributes.derived.dex;
+    const min = system.attributes.derived.min;
+    const pre = system.attributes.derived.pre;
+    const dis = system.attributes.derived.dis;
+    const wis = system.attributes.derived.wis;
+
+    const calculateCheck = (primary, secondary, check) => {
+      check.base = primary.value + secondary.value ?? 0;
+      check.total = check.base + check.rank + check.mod;
+    };
 
     // PHY Abilities
-    checks.athletics.base = phy.value + str.value ?? 0;
-    checks.athletics.total =
-      checks.athletics.base + checks.athletics.rank + checks.athletics.mod;
-
-    checks.endurance.base = phy.value + end.value ?? 0;
-    checks.endurance.total =
-      checks.endurance.base + checks.endurance.rank + checks.endurance.mod;
+    calculateCheck(phy, str, checks.athletics);
+    calculateCheck(phy, end, checks.endurance);
 
     // AGI Abilities
-    checks.overcome.base = agi.value + qik.value ?? 0;
-    checks.overcome.total =
-      checks.overcome.base + checks.overcome.rank + checks.overcome.mod;
-
-    checks.operation.base = agi.value + dex.value ?? 0;
-    checks.operation.total =
-      checks.operation.base + checks.operation.rank + checks.operation.mod;
+    calculateCheck(agi, qik, checks.overcome);
+    calculateCheck(agi, dex, checks.operation);
 
     // WIL Abilities
-    checks.perception.base = wil.value + min.value ?? 0;
-    checks.perception.total =
-      checks.perception.base + checks.perception.rank + checks.perception.mod;
-
-    checks.negotiation.base = wil.value + pre.value ?? 0;
-    checks.negotiation.total =
-      checks.negotiation.base +
-      checks.negotiation.rank +
-      checks.negotiation.mod;
-
-    // checks.resistance.base = pow.mod ?? 0;
-    // checks.resistance.total = checks.resistance.base + checks.resistance.mod;
+    calculateCheck(wil, min, checks.perception);
+    calculateCheck(wil, pre, checks.negotiation);
 
     // INT Abilities
-    checks.knowledge.base = int.value + dis.value ?? 0;
-    checks.knowledge.total =
-      checks.knowledge.base + checks.knowledge.rank + checks.knowledge.mod;
-
-    checks.analysis.base = int.value + wis.value ?? 0;
-    checks.analysis.total =
-      checks.analysis.base + checks.analysis.rank + checks.analysis.mod;
+    calculateCheck(int, dis, checks.knowledge);
+    calculateCheck(int, wis, checks.analysis);
 
     // Accuracy
 
@@ -260,18 +240,18 @@ export class LHTrpgActor extends Actor {
   _computeBattleStatuses(actorData) {
     const system = actorData.system;
     const bStatus = system["battle-status"];
-    const phy = system.attributes.phy;
-    const agi = system.attributes.agi;
-    const wil = system.attributes.wil;
-    const int = system.attributes.int;
-    const str = system.attributes.str;
-    const end = system.attributes.end;
-    const qik = system.attributes.qik;
-    const dex = system.attributes.dex;
-    const min = system.attributes.min;
-    const pre = system.attributes.pre;
-    const dis = system.attributes.dis;
-    const wis = system.attributes.wis;
+    const phy = system.attributes.base.phy;
+    const agi = system.attributes.base.agi;
+    const wil = system.attributes.base.wil;
+    const int = system.attributes.base.int;
+    const str = system.attributes.derived.str;
+    const end = system.attributes.derived.end;
+    const qik = system.attributes.derived.qik;
+    const dex = system.attributes.derived.dex;
+    const min = system.attributes.derived.min;
+    const pre = system.attributes.derived.pre;
+    const dis = system.attributes.derived.dis;
+    const wis = system.attributes.derived.wis;
 
     // Get equipped weapons
     const { weapons } = actorData.itemTypes.weapon.reduce(

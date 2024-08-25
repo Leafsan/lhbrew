@@ -19,54 +19,42 @@
         "attributes": {
           "base": {
             "phy": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "agi": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "wil": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "int": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             }
           },
           "derived": {
             "str": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "end": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "dex": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "qik": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "min": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "pre": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "dis": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             },
             "wis": {
-              "value": 0,
-              "mod": 0
+              "value": 0
             }
           }
         }
@@ -75,28 +63,28 @@
         "battle-status": {
           "power": {
             "attack": {
-              "mod": 0
+              "value": 0
             },
             "restoration": {
-              "mod": 0
+              "value": 0
             },
             "magic": {
-              "mod": 0
+              "value": 0
             }
           },
           "defense": {
             "phys": {
-              "mod": 0
+              "value": 0
             },
             "magic": {
-              "mod": 0
+              "value": 0
             }
           },
           "speed": {
-            "mod": 0
+            "value": 0
           },
           "initiative": {
-            "mod": 0
+            "value": 0
           }
         }
       },
@@ -119,37 +107,59 @@
       "checks": {
         "checks": {
           "athletics": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "endurance": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "overcome": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "operation": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "perception": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "negotiation": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "knowledge": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "analysis": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "accuracy": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "evasion": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           },
           "resistance": {
-            "rank": 0
+            "rank": 0,
+            "mod": 0,
+            "attain": 0
           }
         }
       }
