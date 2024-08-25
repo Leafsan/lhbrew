@@ -237,6 +237,10 @@ export class LHTrpgActor extends Actor {
     }
   }
 
+  _computeAttributesAndHPMP(actorData) {
+    const system = actorData.system;
+  }
+
   _computeBattleStatuses(actorData) {
     const system = actorData.system;
     const bStatus = system["battle-status"];

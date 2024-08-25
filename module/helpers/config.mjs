@@ -9,6 +9,7 @@ LHTRPG.races = {
   felinoid: "LHTRPG.Races.felinoid",
   wolfFang: "LHTRPG.Races.wolfFang",
   foxTail: "LHTRPG.Races.foxTail",
+  ritian: "LHTRPG.Races.ritian",
 };
 
 LHTRPG.classes = {
