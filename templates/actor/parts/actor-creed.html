@@ -14,7 +14,13 @@
   <li class="item grid grid-6col" data-item-id="{{item._id}}">
     <div class="item-name grid-span-3">
       <div class="item-image">
-        <a class="" data-roll-type="item"
+        <a
+          class="rollableSimpleItem"
+          data-roll-type="item"
+          data-name="{{item.name}}"
+          data-desc="{{item.system.description}}"
+          data-tags="{{item.system.tags}}"
+          data-img="{{item.img}}"
           ><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"
         /></a>
       </div>

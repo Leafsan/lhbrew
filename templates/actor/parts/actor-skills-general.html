@@ -1,38 +1,61 @@
-<h4 class="tab-title">
-	SKILLS
-</h4>
+<h4 class="tab-title">SKILLS</h4>
 
 <ol class="items-list">
-	<li class="item grid grid-7col items-header">
-		<div class="item-name grid-span-3">{{localize "LHTRPG.Monster.Skills"}}</div>
-		<div class="item-name">{{localize "LHTRPG.Skill.Label.Timing"}}</div>
-		<div class="item-name grid-span-2">{{localize "LHTRPG.Skill.Label.Check"}}</div>
-		<div class="item-controls">
-			<a class="item-control item-create" title="Create item" data-type="skill" data-subtype="General"><i class="fas fa-plus"></i>
-				{{localize "LHTRPG.Add"}}</a>
-		</div>
-	</li>
-	{{#each skills.general as |item id|}}
-		<li class="item grid grid-7col" data-item-id="{{item._id}}">
-			<div class="item-name grid-span-3">
-				<div class="item-image">
-					<a class="" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24"
-							height="24" /></a>
-				</div>
-				<a class="item-control item-edit">
-					<h4>{{item.name}}</h4>
-				</a>
-			</div>
-			<div class="item-timing">
-				<h4>{{item.system.timing}}</h4>
-			</div>
-			<div class="item-checkType grid-span-2">
-				<h4>{{item.system.checkType}}</h4>
-			</div>
-			<div class="item-controls">
-				<a class="item-control item-delete" title=""><i
-						class="fas fa-trash"></i></a>
-			</div>
-		</li>
-	{{/each}}
+  <li class="item grid grid-7col items-header">
+    <div class="item-name grid-span-3">
+      {{localize "LHTRPG.Monster.Skills"}}
+    </div>
+    <div class="item-name">{{localize "LHTRPG.Skill.Label.Timing"}}</div>
+    <div class="item-name grid-span-2">
+      {{localize "LHTRPG.Skill.Label.Check"}}
+    </div>
+    <div class="item-controls">
+      <a
+        class="item-control item-create"
+        title="Create item"
+        data-type="skill"
+        data-subtype="General"
+        ><i class="fas fa-plus"></i> {{localize "LHTRPG.Add"}}</a
+      >
+    </div>
+  </li>
+  {{#each skills.general as |item id|}}
+  <li class="item grid grid-7col" data-item-id="{{item._id}}">
+    <div class="item-name grid-span-3">
+      <div class="item-image">
+        <a
+          class="rollableActionItem"
+          data-roll-type="item"
+          data-name="{{item.name}}"
+          data-img="{{item.img}}"
+          data-desc="{{item.system.description}}"
+          data-tags="{{item.system.tags}}"
+          data-timing="{{item.system.timing}}"
+          data-check="{{item.system.checkType}}"
+          data-target="{{item.system.target}}"
+          data-range="{{item.system.range}}"
+          data-rank="{{item.system.skillRank.value}}"
+          data-mrank="{{item.system.skillRank.max}}"
+          data-cost="{{item.system.cost}}"
+          data-limit="{{item.system.limit}}"
+          ><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"
+        /></a>
+      </div>
+      <a class="item-control item-edit">
+        <h4>{{item.name}}</h4>
+      </a>
+    </div>
+    <div class="item-timing">
+      <h4>{{item.system.timing}}</h4>
+    </div>
+    <div class="item-checkType grid-span-2">
+      <h4>{{item.system.checkType}}</h4>
+    </div>
+    <div class="item-controls">
+      <a class="item-control item-delete" title=""
+        ><i class="fas fa-trash"></i
+      ></a>
+    </div>
+  </li>
+  {{/each}}
 </ol>

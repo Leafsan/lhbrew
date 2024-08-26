@@ -264,6 +264,12 @@ export class LHTrpgActorSheet extends ActorSheet {
     // Roll skill
     html.find(".rollableSkill").click(this._onRollSkill.bind(this));
 
+    // Roll simple
+    html.find(".rollableSimpleItem").click(this._onDescShow.bind(this));
+
+    // Roll action
+    html.find(".rollableActionItem").click(this._onRollAction.bind(this));
+
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
@@ -440,11 +446,11 @@ export class LHTrpgActorSheet extends ActorSheet {
 
     let content = `
     <h2>${flavorText}</h2>
-    <h3 style="text-align:center">주사위 결과</h3>
+    <h3 style="text-align:center; background-color: #ababab;">주사위 결과</h3>
     <div style="text-align:center; font-size: 20px;">${individualResults.join(
       ", "
     )}</div>
-    <h3 style="text-align:center">판정값 vs 난이도</h3>
+    <h3 style="text-align:center; background-color: #ababab;">판정값 vs 난이도</h3>
     <div style="text-align:center; font-size: 20px;">${
       roll.result
     } vs ${difficultyTotal}</div>${additionalFlavor}
@@ -454,5 +460,65 @@ export class LHTrpgActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
     });
     return roll;
+  }
+
+  async _onDescShow(event) {
+    const { currentTarget: element } = event;
+    const { name, desc, tags, img } = element.dataset;
+
+    // let content = `
+    // <img src="${img}" style="width: 100%;"/>
+    // <h2 style="background-color:red;">${name}</h2>
+    // <h3>태그 : ${tags}</h3>
+    // <div style="font-size: 20px;">${desc}</div>
+    // `;
+    //<img src="${img}" style="width: 100%;"/>
+    let content = `
+    <h2>${name}</h2>
+    <h3 style="text-align: center">태그 : ${tags}</h3>
+    <div style="font-size: 14px;">${desc}</div>
+    `;
+
+    ChatMessage.create({
+      content: content,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    });
+  }
+
+  async _onRollAction(event) {
+    const { currentTarget: element } = event;
+    const {
+      name,
+      img,
+      desc,
+      tags,
+      timing,
+      check,
+      target,
+      range,
+      rank,
+      mrank: maxRank,
+      cost,
+      limit,
+    } = element.dataset;
+
+    let content = `
+    <h2>${name}</h2>
+    <h3 style="text-align:center; background-color: #ababab;">태그 : ${tags}</h3>
+    <h4> 랭크 ${rank}/${maxRank}</h4>
+    <h4 style="background-color: #ababab;"> 타이밍 : ${timing}</h4>
+    <h4> 판정 : ${check}</h4>
+    <h4 style="background-color: #ababab;"> 대상 : ${target}</h4>
+    <h4> 사정거리 : ${range}</h4>
+    <h4 style="background-color: #ababab;"> 코스트 : ${cost}</h4>
+    <h4> 제한 : ${limit}</h4>
+    <h3 style="text-align:center; background-color: #ababab;">설명</h3>
+    <div style="font-size: 14px;">${desc}</div>
+    `;
+
+    ChatMessage.create({
+      content: content,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    });
   }
 }
