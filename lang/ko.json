@@ -42,6 +42,7 @@
   "LHTRPG": {
     "Add": "추가",
     "Agi": "AGI",
+    "AttainBonus": "달성치 수정",
     "Biography": {
       "Label": "설명"
     },
@@ -87,6 +88,9 @@
     "Connection": {
       "Label": "커넥션",
       "Name": "이름"
+    },
+    "Creed": {
+      "Label": "가이딩 크리드"
     },
     "Description": {
       "Label": "설명"

@@ -8,6 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
     // Actor partials.
     "systems/lhtrpgbrew/templates/actor/parts/actor-stats.html",
     "systems/lhtrpgbrew/templates/actor/parts/actor-effects.html",
+    "systems/lhtrpgbrew/templates/actor/parts/actor-creed.html",
     "systems/lhtrpgbrew/templates/actor/parts/actor-inventory.html",
     "systems/lhtrpgbrew/templates/actor/parts/actor-biography.html",
     "systems/lhtrpgbrew/templates/actor/parts/actor-bio-connections.html",

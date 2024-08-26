@@ -365,30 +365,37 @@ export class LHTrpgActorSheet extends ActorSheet {
   }
 
   async _onRollSkill(event) {
-    const element = event.currentTarget;
-    const dataset = element.dataset;
-    const rank = dataset.rank;
-    const total = dataset.total;
-    const skillName = dataset.name;
-    console.log(dataset);
-    const rendered_dialog = await renderTemplate(
+    const { currentTarget: element } = event;
+    const { rank, attain, total, name: skillName } = element.dataset;
+
+    const renderedDialog = await renderTemplate(
       "systems/lhtrpgbrew/templates/dialogs/rollDialog.html"
     );
-    const checkName = `LHTRPG.Check.${skillName}`;
-    let difficulty;
 
-    let d = new Dialog({
-      title: `${game.i18n.localize(
-        "LHTRPG.WindowTitle.AbilityCheck"
-      )} - ${game.i18n.localize(checkName)}`,
-      content: rendered_dialog,
+    const checkName = `LHTRPG.Check.${skillName}`;
+    const dialogTitle = `${game.i18n.localize(
+      "LHTRPG.WindowTitle.AbilityCheck"
+    )} - ${game.i18n.localize(checkName)}`;
+
+    new Dialog({
+      title: dialogTitle,
+      content: renderedDialog,
       buttons: {
         roll: {
           icon: '<i class="fas fa-dice"></i>',
           label: game.i18n.localize("LHTRPG.ButtonLabel.Roll"),
           callback: (html) => {
-            difficulty = html.find(".abilityCheckDifficulty").val();
-            this.rollSkill(skillName, total, difficulty, rank);
+            const difficulty = html.find(".abilityCheckDifficulty").val();
+            const dices = html.find(".abilityCheckDiceNumber").val();
+            const attainBonus = html.find(".abilityCheckAttain").val();
+            this.rollSkill(
+              skillName,
+              total,
+              difficulty,
+              dices,
+              rank,
+              attain + attainBonus
+            );
           },
         },
         cancel: {
@@ -397,39 +404,46 @@ export class LHTrpgActorSheet extends ActorSheet {
         },
       },
       default: "cancel",
-    });
-    d.render(true);
+    }).render(true);
   }
 
-  async rollSkill(skillName, total, difficulty, rank) {
+  async rollSkill(skillName, total, difficulty, dices, rank, attain) {
     const checkName = `LHTRPG.Check.${skillName}`;
     const flavorText = `${game.i18n.localize(
       "LHTRPG.WindowTitle.AbilityCheck"
     )} - ${game.i18n.localize(checkName)}`;
 
-    console.log(total);
-    console.log(difficulty);
-    console.log(rank);
+    const formula = `${Math.max(parseInt(dices) + 2, 1)}d6`;
+    const roll = await new Roll(formula).evaluate();
+    const individualResults = roll.dice[0].results.map((r) => r.result);
 
-    //rank type check
+    const difficultyTotal = total - difficulty + parseInt(rank);
+    const attainTotal =
+      parseInt(roll.result) + parseInt(rank) + parseInt(attain);
 
-    let roll = await new Roll("1d20").evaluate();
-    let difficultyTotal = total - difficulty + parseInt(rank);
+    let additionalFlavor;
 
-    console.log(difficultyTotal);
+    if (parseInt(roll.result) <= difficultyTotal) {
+      additionalFlavor = `<h3 style="text-align:center; color:green;">성공</h3><div style="text-align:center; font-size: 20px;">달성치 : ${attainTotal}</div>`;
+    } else {
+      additionalFlavor = `<h3 style="text-align:center; color:red;">실패</h3>`;
+    }
 
-    let content = `<h2>${flavorText}</h2><h3 style="text-align:center">주사위 결과 vs 난이도</h3><div style="text-align:center; font-size: 20px;">${roll.total} vs ${difficultyTotal}</div>`;
+    let content = `
+    <h2>${flavorText}</h2>
+    <h3 style="text-align:center">주사위 결과</h3>
+    <div style="text-align:center; font-size: 20px;">${individualResults.join(
+      ", "
+    )}</div>
+    <h3 style="text-align:center">판정값 vs 난이도</h3>
+    <div style="text-align:center; font-size: 20px;">${
+      roll.result
+    } vs ${difficultyTotal}</div>${additionalFlavor}
+    `;
     ChatMessage.create({
       content: content,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
     });
-
-    // roll.toMessage({
-    //   speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    //   flavor: flavorText,
-    //   rollMode: game.settings.get("core", "rollMode"),
-    // });
-
     return roll;
   }
 
