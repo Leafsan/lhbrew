@@ -9,6 +9,7 @@ export class LHTrpgItem extends Item {
    */
   get areEffectsSuppressed() {
     const requireEquipped =
+      this.type !== "creed" &&
       this.type !== "skill" &&
       this.type !== "connection" &&
       this.type !== "union";

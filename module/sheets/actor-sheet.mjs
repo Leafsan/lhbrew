@@ -125,6 +125,7 @@ export class LHTrpgActorSheet extends ActorSheet {
     const itemsBag = [];
     const itemsGear = [];
 
+    const itemsCreed = [];
     const itemsConnection = [];
     const itemsUnion = [];
 
@@ -181,6 +182,10 @@ export class LHTrpgActorSheet extends ActorSheet {
       else if (i.system.equipped === false && i.type === "gear") {
         itemsGear.push(i);
       }
+      // Append to Guiding Creed.
+      else if (i.type === "creed") {
+        itemsCreed.push(i);
+      }
       // Append to Connections.
       else if (i.type === "connection") {
         itemsConnection.push(i);
@@ -213,6 +218,10 @@ export class LHTrpgActorSheet extends ActorSheet {
       accessories: itemsAccessory,
       bags: itemsBag,
       gear: itemsGear,
+    };
+
+    context.creed = {
+      creeds: itemsCreed,
     };
 
     context.social = {
@@ -446,10 +455,4 @@ export class LHTrpgActorSheet extends ActorSheet {
     });
     return roll;
   }
-
-  // async _onOpeningInfoWindow (state, actor) {
-  //   console.log(state);
-  //   console.log(actor);
-  //   await actor.setFlag("lhtrpg", "hfWindowOpened", state);
-  // }
 }

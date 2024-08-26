@@ -238,6 +238,7 @@
       "accessory",
       "bag",
       "gear",
+      "creed",
       "connection",
       "union"
     ],
@@ -300,6 +301,9 @@
     },
     "gear": {
       "templates": ["base", "itemBase", "infos"]
+    },
+    "creed": {
+      "templates": ["base"]
     },
     "connection": {
       "templates": ["base"]

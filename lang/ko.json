@@ -9,6 +9,7 @@
       "TypeArmor": "방어구",
       "TypeBag": "가방",
       "TypeConnection": "커넥션",
+      "TypeCreed": "가이딩 크리드",
       "TypeGear": "장비",
       "TypeShield": "방패",
       "TypeSkill": "특기",
@@ -33,6 +34,7 @@
     "TypeArmor": "방어구",
     "TypeBag": "가방",
     "TypeConnection": "커넥션",
+    "TypeCreed": "가이딩 크리드",
     "TypeGear": "장비",
     "TypeShield": "방패",
     "TypeSkill": "특기",
@@ -90,7 +92,8 @@
       "Name": "이름"
     },
     "Creed": {
-      "Label": "가이딩 크리드"
+      "Label": "가이딩 크리드",
+      "Name": "이름"
     },
     "Description": {
       "Label": "설명"
