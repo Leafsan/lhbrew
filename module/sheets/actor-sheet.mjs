@@ -541,22 +541,38 @@ export class LHTrpgActorSheet extends ActorSheet {
   //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
   //   });
   // }
-
   async _onUseItem(event) {
     event.preventDefault();
+
+    // Item Macro 모듈이 설치되어 있는지 확인
+    if (!game.modules.get("itemacro")?.active) {
+      ui.notifications.error(
+        "Item Macro 모듈이 설치되어 있지 않거나 활성화되지 않았습니다."
+      );
+      return;
+    }
 
     // 클릭한 아이템의 ID 가져오기
     const li = $(event.currentTarget).closest(".item");
     const itemId = li.data("itemId");
 
     // 아이템 가져오기
-    const item = this.actor.items.get(itemId);
+    const selectedItem = this.actor.items.get(itemId);
+    const selectedActor = this.actor;
 
     // 아이템 매크로 실행
-    if (item) {
-      let macro = game.macros.find((m) => m.name === item.name);
-      if (macro) {
-        macro.execute();
+    if (selectedItem) {
+      console.log(selectedItem);
+      if (selectedItem.hasMacro()) {
+        try {
+          await selectedItem.executeMacro({
+            actor: selectedActor,
+            item: selectedItem,
+            event: event, // 클릭 이벤트가 필요하다면
+          });
+        } catch (err) {
+          console.error("Error executing macro for item", err);
+        }
       } else {
         ui.notifications.warn("이 아이템에 연결된 매크로를 찾을 수 없습니다.");
       }
