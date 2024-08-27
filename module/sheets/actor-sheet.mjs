@@ -277,6 +277,10 @@ export class LHTrpgActorSheet extends ActorSheet {
     // Add Inventory Item
     html.find(".item-create").click(this._onItemCreate.bind(this));
 
+    html.find(".item-roll").click(this._onDescShow.bind(this));
+
+    html.find(".item-use").click(this._onUseItem.bind(this));
+
     // Delete Inventory Item
     html.find(".item-equip").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
@@ -520,5 +524,44 @@ export class LHTrpgActorSheet extends ActorSheet {
       content: content,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
     });
+  }
+
+  // async _onShowItem(event) {
+  //   const { currentTarget: element } = event;
+  //   const { name, desc, tags, img } = element.dataset;
+
+  //   let content = `
+  //   <h2 style="background-color:red;">${name}</h2>
+  //   <h3>태그 : ${tags}</h3>
+  //   <div style="font-size: 20px;">${desc}</div>
+  //   `;
+
+  //   ChatMessage.create({
+  //     content: content,
+  //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+  //   });
+  // }
+
+  async _onUseItem(event) {
+    event.preventDefault();
+
+    // 클릭한 아이템의 ID 가져오기
+    const li = $(event.currentTarget).closest(".item");
+    const itemId = li.data("itemId");
+
+    // 아이템 가져오기
+    const item = this.actor.items.get(itemId);
+
+    // 아이템 매크로 실행
+    if (item) {
+      let macro = game.macros.find((m) => m.name === item.name);
+      if (macro) {
+        macro.execute();
+      } else {
+        ui.notifications.warn("이 아이템에 연결된 매크로를 찾을 수 없습니다.");
+      }
+    } else {
+      ui.notifications.warn("아이템을 찾을 수 없습니다.");
+    }
   }
 }
