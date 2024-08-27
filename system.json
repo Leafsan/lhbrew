@@ -52,6 +52,6 @@
   "secondaryTokenAttribute": "mana",
   "url": "https://github.com/LeafSan/lhbrew",
   "manifest": "https://raw.githubusercontent.com/LeafSan/lhbrew/main/system.json",
-  "download": "https://github.com/Leafsan/lhbrew/releases/download/test/lhbrew.zip",
+  "download": "https://github.com/Leafsan/lhbrew/releases/download/beta/lhbrew.zip",
   "license": "LICENSE.txt"
 }
