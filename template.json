@@ -114,7 +114,9 @@
           "confused": false,
           "staggered": false,
           "afflicted": false,
-          "overconfident": false
+          "overconfident": false,
+          "poisoned": 0,
+          "additionalHit": []
         },
         "combat-status": {
           "regen": 0,
