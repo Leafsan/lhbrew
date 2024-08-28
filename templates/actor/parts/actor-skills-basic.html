@@ -20,7 +20,7 @@
     </div>
   </li>
   {{#each skills.basic as |item id|}}
-  <li class="item grid grid-7col" data-item-id="{{item._id}}">
+  <li class="item grid grid-8col" data-item-id="{{item._id}}">
     <div class="item-name grid-span-3">
       <div class="item-image">
         <a
@@ -43,6 +43,11 @@
       </div>
       <a class="item-control item-edit">
         <h4>{{item.name}}</h4>
+      </a>
+    </div>
+    <div class="item-controls">
+      <a class="item-control action-use" title="">
+        <i class="fas fa-dice"></i>
       </a>
     </div>
     <div class="item-timing">

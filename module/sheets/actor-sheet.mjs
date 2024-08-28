@@ -281,6 +281,9 @@ export class LHTrpgActorSheet extends ActorSheet {
 
     html.find(".item-use").click(this._onUseItem.bind(this));
 
+    // use actions
+    html.find(".action-use").click(this._onUseAction.bind(this));
+
     // Delete Inventory Item
     html.find(".item-equip").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
@@ -578,6 +581,46 @@ export class LHTrpgActorSheet extends ActorSheet {
       }
     } else {
       ui.notifications.warn("아이템을 찾을 수 없습니다.");
+    }
+  }
+
+  async _onUseAction(event) {
+    event.preventDefault();
+
+    // Item Macro 모듈이 설치되어 있는지 확인
+    if (!game.modules.get("itemacro")?.active) {
+      ui.notifications.error(
+        "Item Macro 모듈이 설치되어 있지 않거나 활성화되지 않았습니다."
+      );
+      return;
+    }
+
+    // 클릭한 아이템의 ID 가져오기
+    const li = $(event.currentTarget).closest(".item");
+    const itemId = li.data("itemId");
+
+    // 아이템 가져오기
+    const selectedItem = this.actor.items.get(itemId);
+    const selectedActor = this.actor;
+
+    // 아이템 매크로 실행
+    if (selectedItem) {
+      console.log(selectedItem);
+      if (selectedItem.hasMacro()) {
+        try {
+          await selectedItem.executeMacro({
+            actor: selectedActor,
+            item: selectedItem,
+            event: event, // 클릭 이벤트가 필요하다면
+          });
+        } catch (err) {
+          console.error("Error executing macro for item", err);
+        }
+      } else {
+        ui.notifications.warn("이 특기에 연결된 매크로를 찾을 수 없습니다.");
+      }
+    } else {
+      ui.notifications.warn("특기를 찾을 수 없습니다.");
     }
   }
 }
