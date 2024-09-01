@@ -1,14 +1,17 @@
 {
   "Actor": {
-    "types": ["character", "monster"],
+    "types": ["character", "monster", "prop", "npc"],
     "templates": {
       "base": {
+        "rank": 1,
+        "infos": {
+          "race": "",
+          "tags": [],
+          "biography": ""
+        }
+      },
+      "attributes": {
         "health": {
-          "value": 0,
-          "max": 0,
-          "mod": 0
-        },
-        "mana": {
           "value": 0,
           "max": 0,
           "mod": 0
@@ -18,11 +21,6 @@
           "max": 0,
           "mod": 0
         },
-        "tags": [],
-        "biography": "",
-        "race": ""
-      },
-      "attributes": {
         "attributes": {
           "base": {
             "phy": {
@@ -78,7 +76,7 @@
           }
         }
       },
-      "battle-status": {
+      "status": {
         "battle-status": {
           "power": {
             "attack": {
@@ -105,9 +103,7 @@
           "initiative": {
             "mod": 0
           }
-        }
-      },
-      "status": {
+        },
         "bad-status": {
           "dazed": false,
           "rigor": false,
@@ -123,7 +119,11 @@
           "damageReduction": [],
           "shield": 0
         },
-        "life-status": []
+        "life-status": {
+          "fatigue": 0,
+          "stress": 0,
+          "seal": []
+        }
       },
       "checks": {
         "checks": {
@@ -188,21 +188,34 @@
             "attain": 0
           }
         }
+      },
+      "macros": {
+        "macros": {
+          "args": [],
+          "commands": ""
+        }
       }
     },
     "character": {
-      "templates": ["base", "attributes", "battle-status", "status", "checks"],
+      "templates": ["base", "attributes", "status", "checks", "macros"],
+      "mana": {
+        "value": 0,
+        "max": 0,
+        "mod": 0
+      },
+      "hate": 0,
       "class": {
         "img": "systems/lhtrpgbrew/assets/ui/classes/Enchanter_Logo.png",
-        "name": "",
-        "subclass": "",
-        "subclassrank": 1
+        "main": {
+          "archetype": "",
+          "name": ""
+        },
+        "sub": {
+          "name": "",
+          "rank": 1
+        }
       },
       "infos": {
-        "crank": 1,
-        "hate": 0,
-        "fatigue": 0,
-        "stress": 0,
         "level": 35
       },
       "social": {
@@ -213,22 +226,23 @@
       }
     },
     "monster": {
-      "templates": ["base", "attributes", "bad-status"],
-      "battle-status": {
-        "defense": {
-          "phys": 0,
-          "magic": 0
-        },
-        "speed": 0,
-        "initiative": 0
-      },
-      "rank": 1,
-      "idendification": "",
-      "hateMultiplier": "",
-      "checks": {
-        "evasion": "",
-        "resistance": ""
+      "templates": ["base", "attributes", "status", "macros"],
+      "idendification": 0,
+      "hateMultiplier": 1,
+      "accuracy": 0,
+      "evasion": 0
+    },
+    "prop": {
+      "templates": ["base", "macros"],
+      "detection": 0,
+      "analysis": 0,
+      "disable": 0,
+      "infos": {
+        "effect": ""
       }
+    },
+    "npc": {
+      "templates": ["base"]
     }
   },
   "Item": {
@@ -266,10 +280,16 @@
       },
       "init": {
         "initiative": 0
+      },
+      "macros": {
+        "macros": {
+          "args": [],
+          "commands": ""
+        }
       }
     },
     "skill": {
-      "templates": ["base", "infos"],
+      "templates": ["base", "infos", "macros"],
       "subtype": "Basic",
       "skillRank": {
         "value": 1,
@@ -302,7 +322,7 @@
       "limit": ""
     },
     "gear": {
-      "templates": ["base", "itemBase", "infos"]
+      "templates": ["base", "itemBase", "infos", "macros"]
     },
     "creed": {
       "templates": ["base"]
