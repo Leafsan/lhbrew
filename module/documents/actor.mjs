@@ -1,3 +1,5 @@
+import { loadJSONData } from "../utils/load-json.mjs";
+
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -53,20 +55,6 @@ export class LHTrpgActor extends Actor {
   prepareDerivedData() {
     const actorData = this;
     const system = actorData.system;
-    const phy = system.attributes.base.phy;
-    const agi = system.attributes.base.agi;
-    const wil = system.attributes.base.wil;
-    const int = system.attributes.base.int;
-    const str = system.attributes.derived.str;
-    const end = system.attributes.derived.end;
-    const qik = system.attributes.derived.qik;
-    const dex = system.attributes.derived.dex;
-    const min = system.attributes.derived.min;
-    const pre = system.attributes.derived.pre;
-    const dis = system.attributes.derived.dis;
-    const wis = system.attributes.derived.wis;
-
-    const checks = system.checks;
     const itemlist = actorData.items;
     const flags = actorData.flags.lhtrpg || {};
     let itemNumber = 0;
@@ -104,7 +92,13 @@ export class LHTrpgActor extends Actor {
    * Prepare Character type specific data
    */
   _prepareCharacterData(actorData) {
-    if (actorData.type !== "character" || actorData.type !== "monster") return;
+    if (
+      actorData.type !== "character" ||
+      actorData.type !== "monster" ||
+      actorData.type !== "prop" ||
+      actorData.type !== "npc"
+    )
+      return;
 
     // Make modifications to data here. For example:
     const data = actorData;
@@ -200,6 +194,7 @@ export class LHTrpgActor extends Actor {
 
     // Get accuracy bonus from weapons
     let accuBonus = 0;
+    let magicAccuBonus = 0;
     // Get equipped weapons
     const { weapons } = actorData.itemTypes.weapon.reduce(
       (obj, equip) => {
@@ -215,6 +210,7 @@ export class LHTrpgActor extends Actor {
       if (weapons.length <= 2) {
         for (let [i] of Object.entries(weapons)) {
           accuBonus += weapons[i].system.accuracy ?? 0;
+          magicAccuBonus += weapons[i].system.mAccuracy ?? 0;
         }
       }
     }
@@ -223,15 +219,10 @@ export class LHTrpgActor extends Actor {
     checks.accuracy.total =
       checks.accuracy.base + accuBonus + checks.accuracy.mod;
 
-    // If any of the dice values goes under 1, get it back to 1.
-    for (let [check] of Object.entries(checks)) {
-      checks[check].dice = Math.max(checks[check].dice, 1);
-    }
-
     // Magic Accuracy
     checks.magicAccuracy.base = wil.value + wis.value ?? 0;
     checks.magicAccuracy.total =
-      checks.magicAccuracy.base + checks.magicAccuracy.mod;
+      checks.magicAccuracy.base + magicAccuBonus + checks.magicAccuracy.mod;
 
     // Evasion
     checks.evasion.base = agi.value ?? 0;
@@ -242,81 +233,84 @@ export class LHTrpgActor extends Actor {
     checks.resistance.total = checks.resistance.base + checks.resistance.mod;
   }
 
-  _computeAttributesAndHPMP(actorData) {
-    const raceAttributes = {
-      human: {
-        phy: 7,
-        agi: 7,
-        wil: 7,
-        int: 7,
-        maxHP: 8,
-        maxMP: 8,
-        initFate: 1,
-      },
-      elf: {
-        phy: 6,
-        agi: 9,
-        wil: 8,
-        int: 7,
-        maxHP: 8,
-        maxMP: 8,
-        initFate: 1,
-      },
-      dwarf: {
-        phy: 9,
-        agi: 6,
-        wil: 8,
-        int: 7,
-        maxHP: 8,
-        maxMP: 8,
-        initFate: 1,
-      },
-      halfAlv: {
-        phy: 6,
-        agi: 8,
-        wil: 7,
-        int: 9,
-        maxHP: 8,
-        maxMP: 8,
-        initFate: 1,
-      },
-      felinoid: {
-        phy: 8,
-        agi: 9,
-        wil: 6,
-        int: 7,
-        maxHP: 8,
-        maxMP: 8,
-        initFate: 1,
-      },
-      wolfFang: {
-        phy: 10,
-        agi: 8,
-        wil: 7,
-        int: 5,
-        maxHP: 16,
-        maxMP: 0,
-        initFate: 1,
-      },
-      foxTail: {
-        phy: 6,
-        agi: 7,
-        wil: 9,
-        int: 8,
-        maxHP: 8,
-        maxMP: 8,
-        initFate: 1,
-      },
-      ritian: {
-        phy: 5,
-        agi: 7,
-        wil: 8,
-        int: 10,
-        maxHP: 0,
-        maxMP: 16,
-        initFate: 1,
-      },
-    };
+  async _computeAttributesAndHPMP(actorData) {
+    const raceAttributes = await loadJSONData(
+      "systems/lhtrpgbrew/packs/race.json"
+    );
+    // const raceAttributes = {
+    //   human: {
+    //     phy: 7,
+    //     agi: 7,
+    //     wil: 7,
+    //     int: 7,
+    //     maxHP: 8,
+    //     maxMP: 8,
+    //     initFate: 1,
+    //   },
+    //   elf: {
+    //     phy: 6,
+    //     agi: 9,
+    //     wil: 8,
+    //     int: 7,
+    //     maxHP: 8,
+    //     maxMP: 8,
+    //     initFate: 1,
+    //   },
+    //   dwarf: {
+    //     phy: 9,
+    //     agi: 6,
+    //     wil: 8,
+    //     int: 7,
+    //     maxHP: 8,
+    //     maxMP: 8,
+    //     initFate: 1,
+    //   },
+    //   halfAlv: {
+    //     phy: 6,
+    //     agi: 8,
+    //     wil: 7,
+    //     int: 9,
+    //     maxHP: 8,
+    //     maxMP: 8,
+    //     initFate: 1,
+    //   },
+    //   felinoid: {
+    //     phy: 8,
+    //     agi: 9,
+    //     wil: 6,
+    //     int: 7,
+    //     maxHP: 8,
+    //     maxMP: 8,
+    //     initFate: 1,
+    //   },
+    //   wolfFang: {
+    //     phy: 10,
+    //     agi: 8,
+    //     wil: 7,
+    //     int: 5,
+    //     maxHP: 16,
+    //     maxMP: 0,
+    //     initFate: 1,
+    //   },
+    //   foxTail: {
+    //     phy: 6,
+    //     agi: 7,
+    //     wil: 9,
+    //     int: 8,
+    //     maxHP: 8,
+    //     maxMP: 8,
+    //     initFate: 1,
+    //   },
+    //   ritian: {
+    //     phy: 5,
+    //     agi: 7,
+    //     wil: 8,
+    //     int: 10,
+    //     maxHP: 0,
+    //     maxMP: 16,
+    //     initFate: 1,
+    //   },
+    // };
 
     const classAttributes = {
       guardian: {
@@ -518,17 +512,21 @@ export class LHTrpgActor extends Actor {
     };
 
     const system = actorData.system;
-    const rank = system.infos.crank;
-    const race = system.race;
-    const mainClass = system.class.name;
-    const fatigue = system.infos.fatigue;
-    const stress = system.infos.stress;
+    const rank = system.rank;
+    const race = system.infos.race;
+    const mainClass = system.class.main.name;
 
-    const baseAttr = system["attributes"].base;
-    const derivedAttr = system["attributes"].derived;
+    const fatigue = system["life-status"].fatigue;
+    const stress = system["life-status"].stress;
+
+    const baseAttr = system.attributes.base;
+    const derivedAttr = system.attributes.derived;
 
     const classAttr = classAttributes[mainClass];
     const raceAttr = raceAttributes[race];
+
+    console.log(raceAttributes);
+    console.log(raceAttr);
 
     // Set base attributes
     baseAttr.phy.value = raceAttr.phy + (baseAttr.phy.mod ?? 0) ?? 0;
@@ -556,6 +554,7 @@ export class LHTrpgActor extends Actor {
         fatigue ?? 0,
       0
     );
+
     system.mana.max = Math.max(
       raceAttr.maxMP +
         classAttr.maxMP +
@@ -565,6 +564,7 @@ export class LHTrpgActor extends Actor {
         stress ?? 0,
       0
     );
+
     system.fate.max = raceAttr.initFate;
   }
 
