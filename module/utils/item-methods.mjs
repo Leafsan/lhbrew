@@ -10,24 +10,3 @@ export function getEquippedItems(actorData, itemType) {
     return obj;
   }, []);
 }
-
-// const { weapons } = actorData.itemTypes.weapon.reduce(
-//   (obj, equip) => {
-//     if (!equip.system.equipped) return obj;
-//     else obj.weapons.push(equip);
-//     return obj;
-//   },
-//   { weapons: [] }
-// );
-
-// // Get equipped weapons
-// const weapons = getEquippedItems(actorData, "weapon");
-
-// // Get equipped armor
-// const armors = getEquippedItems(actorData, "armor");
-
-// // Get equipped shields
-// const shields = getEquippedItems(actorData, "shield");
-
-// // Get equipped accessories
-// const accessories = getEquippedItems(actorData, "accessory");

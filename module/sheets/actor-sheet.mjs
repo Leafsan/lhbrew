@@ -388,7 +388,7 @@ export class LHTrpgActorSheet extends ActorSheet {
 
   async _onRollSkill(event) {
     const { currentTarget: element } = event;
-    const { rank, attain, total, name: skillName } = element.dataset;
+    const { name: skillName, rank, attain, total } = element.dataset;
 
     const renderedDialog = await renderTemplate(
       "systems/lhtrpgbrew/templates/dialogs/rollDialog.html"
