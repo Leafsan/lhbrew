@@ -1,4 +1,13 @@
 {
+  "none": {
+    "phy": 0,
+    "agi": 0,
+    "wil": 0,
+    "int": 0,
+    "maxHP": 0,
+    "maxMP": 0,
+    "initFate": 0
+  },
   "human": {
     "phy": 7,
     "agi": 7,

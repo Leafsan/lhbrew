@@ -1,4 +1,6 @@
-import { loadJSONData } from "../utils/load-json.mjs";
+import { LHTRPG } from "../helpers/config.mjs";
+import { calculateCheck } from "../utils/actor-methods.mjs";
+import { getEquippedItems } from "../utils/item-methods.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -169,11 +171,6 @@ export class LHTrpgActor extends Actor {
     const dis = system.attributes.derived.dis;
     const wis = system.attributes.derived.wis;
 
-    const calculateCheck = (primary, secondary, check) => {
-      check.base = primary.value + secondary.value ?? 0;
-      check.total = check.base + check.rank + check.mod;
-    };
-
     // PHY Abilities
     calculateCheck(phy, str, checks.athletics);
     calculateCheck(phy, end, checks.endurance);
@@ -196,14 +193,7 @@ export class LHTrpgActor extends Actor {
     let accuBonus = 0;
     let magicAccuBonus = 0;
     // Get equipped weapons
-    const { weapons } = actorData.itemTypes.weapon.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped) return obj;
-        else obj.weapons.push(equip);
-        return obj;
-      },
-      { weapons: [] }
-    );
+    const weapons = getEquippedItems(actorData, "weapon");
 
     // Only add the accuracy bonus of the weapons if there's 2 or less of them, as that's the equippable limit
     if (weapons.length > 0) {
@@ -234,283 +224,6 @@ export class LHTrpgActor extends Actor {
   }
 
   async _computeAttributesAndHPMP(actorData) {
-    const raceAttributes = await loadJSONData(
-      "systems/lhtrpgbrew/packs/race.json"
-    );
-    // const raceAttributes = {
-    //   human: {
-    //     phy: 7,
-    //     agi: 7,
-    //     wil: 7,
-    //     int: 7,
-    //     maxHP: 8,
-    //     maxMP: 8,
-    //     initFate: 1,
-    //   },
-    //   elf: {
-    //     phy: 6,
-    //     agi: 9,
-    //     wil: 8,
-    //     int: 7,
-    //     maxHP: 8,
-    //     maxMP: 8,
-    //     initFate: 1,
-    //   },
-    //   dwarf: {
-    //     phy: 9,
-    //     agi: 6,
-    //     wil: 8,
-    //     int: 7,
-    //     maxHP: 8,
-    //     maxMP: 8,
-    //     initFate: 1,
-    //   },
-    //   halfAlv: {
-    //     phy: 6,
-    //     agi: 8,
-    //     wil: 7,
-    //     int: 9,
-    //     maxHP: 8,
-    //     maxMP: 8,
-    //     initFate: 1,
-    //   },
-    //   felinoid: {
-    //     phy: 8,
-    //     agi: 9,
-    //     wil: 6,
-    //     int: 7,
-    //     maxHP: 8,
-    //     maxMP: 8,
-    //     initFate: 1,
-    //   },
-    //   wolfFang: {
-    //     phy: 10,
-    //     agi: 8,
-    //     wil: 7,
-    //     int: 5,
-    //     maxHP: 16,
-    //     maxMP: 0,
-    //     initFate: 1,
-    //   },
-    //   foxTail: {
-    //     phy: 6,
-    //     agi: 7,
-    //     wil: 9,
-    //     int: 8,
-    //     maxHP: 8,
-    //     maxMP: 8,
-    //     initFate: 1,
-    //   },
-    //   ritian: {
-    //     phy: 5,
-    //     agi: 7,
-    //     wil: 8,
-    //     int: 10,
-    //     maxHP: 0,
-    //     maxMP: 16,
-    //     initFate: 1,
-    //   },
-    // };
-
-    const classAttributes = {
-      guardian: {
-        maxHP: 50,
-        maxMP: 30,
-        str: 2,
-        end: 4,
-        dex: 1,
-        qik: 1,
-        min: 3,
-        pre: 2,
-        dis: 0,
-        wis: 1,
-        hpGrowth: 7,
-        mpGrowth: 1,
-      },
-      samurai: {
-        maxHP: 50,
-        maxMP: 30,
-        str: 4,
-        end: 2,
-        dex: 1,
-        qik: 3,
-        min: 1,
-        pre: 0,
-        dis: 1,
-        wis: 2,
-        hpGrowth: 7,
-        mpGrowth: 1,
-      },
-      monk: {
-        maxHP: 45,
-        maxMP: 35,
-        str: 3,
-        end: 1,
-        dex: 4,
-        qik: 2,
-        min: 2,
-        pre: 1,
-        dis: 0,
-        wis: 1,
-        hpGrowth: 6,
-        mpGrowth: 2,
-      },
-      hwarang: {
-        maxHP: 45,
-        maxMP: 35,
-        str: 4,
-        end: 2,
-        dex: 1,
-        qik: 1,
-        min: 1,
-        pre: 2,
-        dis: 3,
-        wis: 0,
-        hpGrowth: 6,
-        mpGrowth: 2,
-      },
-      cleric: {
-        maxHP: 45,
-        maxMP: 35,
-        str: 2,
-        end: 2,
-        dex: 1,
-        qik: 0,
-        min: 4,
-        pre: 3,
-        dis: 1,
-        wis: 1,
-        hpGrowth: 6,
-        mpGrowth: 2,
-      },
-      druid: {
-        maxHP: 35,
-        maxMP: 45,
-        str: 0,
-        end: 1,
-        dex: 1,
-        qik: 1,
-        min: 3,
-        pre: 2,
-        dis: 4,
-        wis: 2,
-        hpGrowth: 4,
-        mpGrowth: 4,
-      },
-      kannagi: {
-        maxHP: 40,
-        maxMP: 40,
-        str: 2,
-        end: 1,
-        dex: 3,
-        qik: 1,
-        min: 0,
-        pre: 4,
-        dis: 1,
-        wis: 2,
-        hpGrowth: 5,
-        mpGrowth: 3,
-      },
-      templar: {
-        maxHP: 45,
-        maxMP: 35,
-        str: 2,
-        end: 3,
-        dex: 1,
-        qik: 0,
-        min: 4,
-        pre: 2,
-        dis: 1,
-        wis: 1,
-        hpGrowth: 6,
-        mpGrowth: 2,
-      },
-      assassin: {
-        maxHP: 40,
-        maxMP: 40,
-        str: 2,
-        end: 1,
-        dex: 3,
-        qik: 4,
-        min: 1,
-        pre: 2,
-        dis: 1,
-        wis: 0,
-        hpGrowth: 5,
-        mpGrowth: 3,
-      },
-      swashbuckler: {
-        maxHP: 45,
-        maxMP: 35,
-        str: 3,
-        end: 2,
-        dex: 4,
-        qik: 2,
-        min: 1,
-        pre: 1,
-        dis: 0,
-        wis: 1,
-        hpGrowth: 6,
-        mpGrowth: 2,
-      },
-      bard: {
-        maxHP: 35,
-        maxMP: 45,
-        str: 1,
-        end: 0,
-        dex: 2,
-        qik: 1,
-        min: 2,
-        pre: 4,
-        dis: 3,
-        wis: 1,
-        hpGrowth: 4,
-        mpGrowth: 3,
-      },
-      sorcerer: {
-        maxHP: 30,
-        maxMP: 50,
-        str: 1,
-        end: 0,
-        dex: 2,
-        qik: 1,
-        min: 2,
-        pre: 1,
-        dis: 4,
-        wis: 3,
-        hpGrowth: 3,
-        mpGrowth: 5,
-      },
-      summoner: {
-        maxHP: 35,
-        maxMP: 45,
-        str: 0,
-        end: 1,
-        dex: 1,
-        qik: 2,
-        min: 4,
-        pre: 1,
-        dis: 3,
-        wis: 2,
-        hpGrowth: 4,
-        mpGrowth: 4,
-      },
-      enchanter: {
-        maxHP: 30,
-        maxMP: 50,
-        str: 0,
-        end: 1,
-        dex: 1,
-        qik: 1,
-        min: 2,
-        pre: 4,
-        dis: 3,
-        wis: 2,
-        hpGrowth: 3,
-        mpGrowth: 5,
-      },
-    };
-
     const system = actorData.system;
     const rank = system.rank;
     const race = system.infos.race;
@@ -522,27 +235,24 @@ export class LHTrpgActor extends Actor {
     const baseAttr = system.attributes.base;
     const derivedAttr = system.attributes.derived;
 
-    const classAttr = classAttributes[mainClass];
-    const raceAttr = raceAttributes[race];
-
-    console.log(raceAttributes);
-    console.log(raceAttr);
+    const classAttr = LHTRPG.classes[mainClass];
+    const raceAttr = LHTRPG.races[race];
 
     // Set base attributes
-    baseAttr.phy.value = raceAttr.phy + (baseAttr.phy.mod ?? 0) ?? 0;
-    baseAttr.agi.value = raceAttr.agi + (baseAttr.agi.mod ?? 0) ?? 0;
-    baseAttr.wil.value = raceAttr.wil + (baseAttr.wil.mod ?? 0) ?? 0;
-    baseAttr.int.value = raceAttr.int + (baseAttr.int.mod ?? 0) ?? 0;
+    baseAttr.phy.value = raceAttr.phy + baseAttr.phy.mod ?? 0;
+    baseAttr.agi.value = raceAttr.agi + baseAttr.agi.mod ?? 0;
+    baseAttr.wil.value = raceAttr.wil + baseAttr.wil.mod ?? 0;
+    baseAttr.int.value = raceAttr.int + baseAttr.int.mod ?? 0;
 
     // Set derived attributes
-    derivedAttr.str.value = classAttr.str + (classAttr.str.mod ?? 0) ?? 0;
-    derivedAttr.end.value = classAttr.end + (classAttr.end.mod ?? 0) ?? 0;
-    derivedAttr.qik.value = classAttr.qik + (classAttr.qik.mod ?? 0) ?? 0;
-    derivedAttr.dex.value = classAttr.dex + (classAttr.dex.mod ?? 0) ?? 0;
-    derivedAttr.min.value = classAttr.min + (classAttr.min.mod ?? 0) ?? 0;
-    derivedAttr.pre.value = classAttr.pre + (classAttr.pre.mod ?? 0) ?? 0;
-    derivedAttr.dis.value = classAttr.dis + (classAttr.dis.mod ?? 0) ?? 0;
-    derivedAttr.wis.value = classAttr.wis + (classAttr.wis.mod ?? 0) ?? 0;
+    derivedAttr.str.value = classAttr.str + derivedAttr.str.mod ?? 0;
+    derivedAttr.end.value = classAttr.end + derivedAttr.end.mod ?? 0;
+    derivedAttr.qik.value = classAttr.qik + derivedAttr.qik.mod ?? 0;
+    derivedAttr.dex.value = classAttr.dex + derivedAttr.dex.mod ?? 0;
+    derivedAttr.min.value = classAttr.min + derivedAttr.min.mod ?? 0;
+    derivedAttr.pre.value = classAttr.pre + derivedAttr.pre.mod ?? 0;
+    derivedAttr.dis.value = classAttr.dis + derivedAttr.dis.mod ?? 0;
+    derivedAttr.wis.value = classAttr.wis + derivedAttr.wis.mod ?? 0;
 
     // Set max HP/MP/Fate
     system.health.max = Math.max(
@@ -565,7 +275,7 @@ export class LHTrpgActor extends Actor {
       0
     );
 
-    system.fate.max = raceAttr.initFate;
+    system.fate.max = raceAttr.initFate + system.fate.mod ?? 0;
   }
 
   _computeBattleStatuses(actorData) {
@@ -584,45 +294,11 @@ export class LHTrpgActor extends Actor {
     const dis = system.attributes.derived.dis;
     const wis = system.attributes.derived.wis;
 
-    // Get equipped weapons
-    const { weapons } = actorData.itemTypes.weapon.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped) return obj;
-        else obj.weapons.push(equip);
-        return obj;
-      },
-      { weapons: [] }
-    );
-
-    // Get equipped armor
-    const { armors } = actorData.itemTypes.armor.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped) return obj;
-        else obj.armors.push(equip);
-        return obj;
-      },
-      { armors: [] }
-    );
-
-    // Get equipped shield
-    const { shields } = actorData.itemTypes.shield.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped) return obj;
-        else obj.shields.push(equip);
-        return obj;
-      },
-      { shields: [] }
-    );
-
-    // Get equipped accessories
-    const { accessories } = actorData.itemTypes.accessory.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped) return obj;
-        else obj.accessories.push(equip);
-        return obj;
-      },
-      { accessories: [] }
-    );
+    // Get equipped items
+    const weapons = getEquippedItems(actorData, "weapon");
+    const armors = getEquippedItems(actorData, "armor");
+    const shields = getEquippedItems(actorData, "shield");
+    const accessories = getEquippedItems(actorData, "accessory");
 
     /**
      * ATTACK, MAGIC, RESTORATION POWER
@@ -713,7 +389,7 @@ export class LHTrpgActor extends Actor {
 
     let initBonus = 0;
 
-    bStatus.initiative.base = qik.value ?? 0;
+    bStatus.initiative.base = qik.value + bStatus.initiative.mod ?? 0;
 
     // Function to calculate initiative bonus from items
     const calculateInitiativeBonus = (items, limit) => {
@@ -743,19 +419,10 @@ export class LHTrpgActor extends Actor {
   _computeInventoryMaxSpace(actorData) {
     const system = actorData.system;
     const inventory = system.inventory;
+    const bags = getEquippedItems(actorData, "bag");
 
     inventory.base = 2;
     let bonusBagSpace = 0;
-    // Get equipped bags
-    const { bags } = actorData.itemTypes.bag.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped) return obj;
-        else obj.bags.push(equip);
-        return obj;
-      },
-      { bags: [] }
-    );
-
     if (bags.length > 0) {
       for (let [i] of Object.entries(bags)) {
         bonusBagSpace += bags[i].system.bagSpace ?? 0;

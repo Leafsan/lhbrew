@@ -11,7 +11,7 @@ import { onManageTags } from "../helpers/tags.mjs";
 export class LHTrpgItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["lhtrpg", "sheet", "item"],
       width: 520,
       height: 550,

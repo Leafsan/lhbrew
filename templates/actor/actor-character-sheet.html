@@ -36,27 +36,27 @@
 					placeholder="{{localize 'LHTRPG.Placeholder.Name'}}" />
 			</h1>
 			<div class="race">
-				<label for="system.race">{{localize 'LHTRPG.Label.Race'}}</label>
-				<select name="system.race">
-					{{selectOptions config.races selected=system.race localize=true}}
+				<label for="system.infos.race">{{localize 'LHTRPG.Label.Race'}}</label>
+				<select name="system.infos.race">
+					{{selectOptions config.raceSelector selected=system.infos.race localize=true}}
 				</select>
 			</div>
 			<img class="class-img" src="{{system.class.img}}" data-edit="system.class.img"
-				title="{{system.class.name}}" height="100" width="100" />
+				title="{{system.class.main.name}}" height="100" width="100" />
 			<div class="classes">
-				<input class="subclass" type="text" name="system.class.subclass"
-					value="{{system.class.subclass}}"
+				<input class="subclass" type="text" name="system.class.sub.name"
+					value="{{system.class.sub.name}}"
 					placeholder="{{localize 'LHTRPG.Placeholder.SubClass'}}">
-				<input class="subclassrank" type="text" name="system.class.subclassrank"
-					value="{{system.class.subclassrank}}"
+				<input class="subclassrank" type="text" name="system.class.sub.rank"
+					value="{{system.class.sub.rank}}"
 					placeholder="1" data-dtype="Number">
-				<select class="class" name="system.class.name">
-					{{selectOptions config.classes selected=system.class.name localize=true}}
+				<select class="class" name="system.class.main.name">
+					{{selectOptions config.classSelector selected=system.class.main.name localize=true}}
 				</select>
 			</div>
 			<div class="levels">
-				<input class="crank" type="text" name="system.infos.crank"
-					value="{{system.infos.crank}}" placeholder="0" data-dtype="Number"
+				<input class="crank" type="text" name="system.rank"
+					value="{{system.rank}}" placeholder="0" data-dtype="Number"
 					maxlength="3">
 				<input class="level" type="text" name="system.infos.level"
 					value="{{system.infos.level}}" placeholder="0" data-dtype="Number"

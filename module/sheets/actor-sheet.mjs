@@ -11,7 +11,7 @@ import { onManageTags } from "../helpers/tags.mjs";
 export class LHTrpgActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["lhtrpg", "sheet", "actor"],
       template: "systems/lhtrpgbrew/templates/actor/actor-sheet.html",
       width: 700,

@@ -1,6 +1,12 @@
+import { loadJSONData } from "../utils/load-json.mjs";
+
 export const LHTRPG = {};
 
-LHTRPG.races = {
+LHTRPG.races = await loadJSONData("systems/lhtrpgbrew/packs/race.json");
+
+LHTRPG.classes = await loadJSONData("systems/lhtrpgbrew/packs/class.json");
+
+LHTRPG.raceSelector = {
   none: "LHTRPG.Races.none",
   human: "LHTRPG.Races.human",
   elf: "LHTRPG.Races.elf",
@@ -12,7 +18,7 @@ LHTRPG.races = {
   ritian: "LHTRPG.Races.ritian",
 };
 
-LHTRPG.classes = {
+LHTRPG.classSelector = {
   none: "LHTRPG.Classes.none",
   guardian: "LHTRPG.Classes.guardian",
   samurai: "LHTRPG.Classes.samurai",
