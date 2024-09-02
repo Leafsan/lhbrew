@@ -197,7 +197,7 @@
       }
     },
     "character": {
-      "templates": ["base", "attributes", "status", "checks", "macros"],
+      "templates": ["base", "attributes", "status", "checks"],
       "mana": {
         "value": 0,
         "max": 0,
