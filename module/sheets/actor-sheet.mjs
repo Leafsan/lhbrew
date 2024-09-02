@@ -3,6 +3,7 @@ import {
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
 import { onManageTags } from "../helpers/tags.mjs";
+import { rollDice } from "../utils/dice-roller.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -388,7 +389,12 @@ export class LHTrpgActorSheet extends ActorSheet {
 
   async _onRollSkill(event) {
     const { currentTarget: element } = event;
-    const { name: skillName, rank, attain, total } = element.dataset;
+    const {
+      name: skillName,
+      rank: skillRank,
+      attain: skillAttainBonus,
+      total: baseDifficulty,
+    } = element.dataset;
 
     const renderedDialog = await renderTemplate(
       "systems/lhtrpgbrew/templates/dialogs/rollDialog.html"
@@ -406,18 +412,19 @@ export class LHTrpgActorSheet extends ActorSheet {
         roll: {
           icon: '<i class="fas fa-dice"></i>',
           label: game.i18n.localize("LHTRPG.ButtonLabel.Roll"),
-          callback: (html) => {
-            const difficulty = html.find(".abilityCheckDifficulty").val();
-            const dices = html.find(".abilityCheckDiceNumber").val();
-            const attainBonus = html.find(".abilityCheckAttain").val();
-            this.rollSkill(
-              skillName,
-              total,
-              difficulty,
-              dices,
-              rank,
-              attain + attainBonus
-            );
+          callback: async (html) => {
+            const difficulty =
+              parseInt(baseDifficulty) -
+              parseInt(html.find(".abilityCheckDifficulty").val()) +
+              parseInt(skillRank);
+            const dices = parseInt(html.find(".abilityCheckDiceNumber").val());
+            const attainBonus =
+              parseInt(html.find(".abilityCheckAttain").val()) +
+              parseInt(skillAttainBonus);
+
+            const rollResult = await rollDice(difficulty, dices, attainBonus);
+
+            this.rollSkill(skillName, rollResult);
           },
         },
         cancel: {
@@ -429,24 +436,16 @@ export class LHTrpgActorSheet extends ActorSheet {
     }).render(true);
   }
 
-  async rollSkill(skillName, total, difficulty, dices, rank, attain) {
+  async rollSkill(skillName, rollResult) {
     const checkName = `LHTRPG.Check.${skillName}`;
     const flavorText = `${game.i18n.localize(
       "LHTRPG.WindowTitle.AbilityCheck"
     )} - ${game.i18n.localize(checkName)}`;
 
-    const formula = `${Math.max(parseInt(dices) + 2, 1)}d6`;
-    const roll = await new Roll(formula).evaluate();
-    const individualResults = roll.dice[0].results.map((r) => r.result);
-
-    const difficultyTotal = total - difficulty + parseInt(rank);
-    const attainTotal =
-      parseInt(roll.result) + parseInt(rank) + parseInt(attain);
-
     let additionalFlavor;
 
-    if (parseInt(roll.result) <= difficultyTotal) {
-      additionalFlavor = `<h3 style="text-align:center; color:green;">성공</h3><div style="text-align:center; font-size: 20px;">달성치 : ${attainTotal}</div>`;
+    if (rollResult.success) {
+      additionalFlavor = `<h3 style="text-align:center; color:green;">성공</h3><div style="text-align:center; font-size: 20px;">달성치 : ${rollResult.attain}</div>`;
     } else {
       additionalFlavor = `<h3 style="text-align:center; color:red;">실패</h3>`;
     }
@@ -454,32 +453,24 @@ export class LHTrpgActorSheet extends ActorSheet {
     let content = `
     <h2>${flavorText}</h2>
     <h3 style="text-align:center; background-color: #ababab;">주사위 결과</h3>
-    <div style="text-align:center; font-size: 20px;">${individualResults.join(
+    <div style="text-align:center; font-size: 20px;">${rollResult.individualResults.join(
       ", "
     )}</div>
     <h3 style="text-align:center; background-color: #ababab;">판정값 vs 난이도</h3>
-    <div style="text-align:center; font-size: 20px;">${
-      roll.result
-    } vs ${difficultyTotal}</div>${additionalFlavor}
+    <div style="text-align:center; font-size: 20px;">${rollResult.value} vs ${
+      rollResult.difficulty
+    }</div>${additionalFlavor}
     `;
     ChatMessage.create({
       content: content,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
     });
-    return roll;
   }
 
   async _onDescShow(event) {
     const { currentTarget: element } = event;
     const { name, desc, tags, img } = element.dataset;
 
-    // let content = `
-    // <img src="${img}" style="width: 100%;"/>
-    // <h2 style="background-color:red;">${name}</h2>
-    // <h3>태그 : ${tags}</h3>
-    // <div style="font-size: 20px;">${desc}</div>
-    // `;
-    //<img src="${img}" style="width: 100%;"/>
     let content = `
     <h2>${name}</h2>
     <h3 style="text-align: center">태그 : ${tags}</h3>
