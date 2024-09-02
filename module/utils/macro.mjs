@@ -1,1 +1,1 @@
-export async function useMacro(args) {}
+export async function useMacro(args, body) {}
